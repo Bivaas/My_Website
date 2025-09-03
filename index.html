@@ -25,5 +25,41 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <!-- Delayed Google Analytics load to improve performance -->
+    <script>
+      // Function to inject the GA script
+      function loadGoogleAnalytics() {
+        // Prevent multiple loads
+        if (window.gtagLoaded) return;
+        window.gtagLoaded = true;
+
+        // Load the GA script
+        const script = document.createElement('script');
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-QZJ25YSFX6';
+        script.async = true;
+        document.head.appendChild(script);
+
+        // Init GA after script loads
+        script.onload = function () {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          window.gtag = gtag;
+
+          gtag('js', new Date());
+          gtag('config', 'G-QZJ25YSFX6', {
+            'anonymize_ip': true,
+            'page_path': window.location.pathname
+          });
+        };
+      }
+
+      // Load GA on user interaction or after timeout
+      window.addEventListener('DOMContentLoaded', function () {
+        setTimeout(loadGoogleAnalytics, 3000); // Delay 3s
+        window.addEventListener('scroll', loadGoogleAnalytics, { once: true });
+        window.addEventListener('click', loadGoogleAnalytics, { once: true });
+        window.addEventListener('keydown', loadGoogleAnalytics, { once: true });
+      });
+    </script>
   </body>
 </html>
