@@ -392,7 +392,8 @@ style={{
 position: 'fixed',
 top: 0,
 left: 0,
-width: '380px',
+width: '80%',
+maxWidth: '380px',
 height: '100vh',
 backgroundColor: 'rgba(44, 44, 44, 0.95)',
 backdropFilter: 'blur(10px)',
@@ -482,7 +483,7 @@ maxWidth: '100%'
 <span style={{ color: '#00FF41' }}>name</span><span style={{ color: '#00FF41' }}>:</span> <span style={{ color: '#FFFF00', fontWeight: 'bold', textShadow: '0 0 8px #FFFF00' }}>"Bivaas Baral"</span><span style={{ color: '#00FF41' }}>,</span>
 </div>
 <div style={{ marginBottom: '6px' }}>
-<span style={{ color: '#00FF41' }}>role</span><span style={{ color: '#00FF41' }}>:</span> <span style={{ color: '#FFFF00', fontWeight: 'bold', textShadow: '0 0 8px #FFFF00' }}>"Full Stack Developer"</span><span style={{ color: '#00FF41' }}>,</span>
+<span style={{ color: '#00FF41' }}>role</span><span style={{ color: '#FFFF00', fontWeight: 'bold', textShadow: '0 0 8px #FFFF00' }}>"Full Stack Developer"</span><span style={{ color: '#00FF41' }}>,</span>
 </div>
 <div style={{ marginBottom: '6px' }}>
 <span style={{ color: '#00FF41' }}>location</span><span style={{ color: '#00FF41' }}>:</span> <span style={{ color: '#FFFF00', fontWeight: 'bold', textShadow: '0 0 8px #FFFF00' }}>"Nepal 🇳🇵"</span><span style={{ color: '#00FF41' }}>,</span>
@@ -758,14 +759,15 @@ filter: 'blur(40px)',
 opacity: 0.3
 }}></div>
 <img
-src="/blogo.png"
+src="/quote.jpg"
 alt="Bivaas Baral, Full Stack Developer"
 loading="lazy"
 style={{
 position: 'relative',
 borderRadius: '50%',
-width: '320px',
-height: '320px',
+width: '100%',
+height: 'auto',
+maxWidth: '320px',
 margin: '0 auto',
 objectFit: 'cover',
 border: '4px solid rgba(168, 218, 220, 0.3)',
@@ -796,7 +798,7 @@ fontWeight: 'bold',
 fontFamily: 'Georgia, serif',
 fontStyle: 'italic',
 margin: '20px 0 0 0',
-padding: '18px 370px',
+padding: '18px 24px',
 background: 'rgba(168, 218, 220, 0.08)',
 borderLeft: '5px solid #A8DADC',
 borderRadius: '8px',
@@ -985,7 +987,6 @@ backgroundColor: 'rgba(44, 44, 44, 0.8)',
 border: '1px solid rgba(168, 218, 220, 0.2)',
 transition: 'all 0.3s ease',
 cursor: 'pointer',
-height: '280px',
 display: 'flex',
 flexDirection: 'column',
 padding: '20px'
