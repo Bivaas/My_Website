@@ -12,7 +12,6 @@ message: ''
 });
 const [messageSent, setMessageSent] = useState(false);
 const sections = useRef([]);
-
 // IntersectionObserver for active section detection
 useEffect(() => {
 const observer = new IntersectionObserver((entries) => {
@@ -102,7 +101,6 @@ description: 'Just a placeholder',
 icon: '🔜',
 technologies: ['React', 'Socket.io', 'Express']
 },
-
 ];
 return (
 <>
@@ -120,10 +118,12 @@ return (
 .responsive-hidden { display: none !important; }
 .responsive-text-lg { font-size: 1.5rem !important; }
 .responsive-text-xl { font-size: 4.5rem !important; }
+.footer-grid { grid-template-columns: repeat(2, 1fr) !important; }
 }
 @media (min-width: 1024px) {
 .responsive-grid-3 { grid-template-columns: 1fr 1fr 1fr !important; }
 .responsive-grid-4 { grid-template-columns: repeat(4, 1fr) !important; }
+.footer-grid { grid-template-columns: repeat(4, 1fr) !important; }
 }
 /* Custom scrollbar styling */
 .sidebar-scroll::-webkit-scrollbar {
@@ -211,7 +211,6 @@ e.target.style.borderColor = 'rgba(168, 218, 220, 0.25)';
 <svg style={{ width: '11px', height: '11px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
 </svg>
-
 </motion.button>
 <motion.div
 initial={{ opacity: 0, x: -20 }}
@@ -381,7 +380,6 @@ zIndex: 99,
 backdropFilter: 'blur(4px)'
 }}
 />
-
 {/* Sidebar - Fixed animation */}
 <motion.div
 initial={{ x: '-100%' }}
@@ -492,7 +490,7 @@ maxWidth: '100%'
 <span style={{ color: '#00FF41' }}>experience</span><span style={{ color: '#00FF41' }}>:</span> <span style={{ color: '#FFFF00', fontWeight: 'bold', textShadow: '0 0 8px #FFFF00' }}>"1+ years"</span><span style={{ color: '#00FF41' }}>,</span>
 </div>
 <div style={{ marginBottom: '12px' }}>
-<span style={{ color: '#00FF41' }}>status</span><span style={{ color: '#00FF41' }}>:</span> <span style={{ color: '#FFFF00', fontWeight: 'bold', textShadow: '0 0 8px #FFFF00' }}>"available"</span><span style={{ color: '#00FF41' }}>,</span>
+<span style={{ color: '#00FF41' }}>status</span><span style={{ color: '#FFFF00', fontWeight: 'bold', textShadow: '0 0 8px #FFFF00' }}>"available"</span><span style={{ color: '#00FF41' }}>,</span>
 </div>
 <div style={{ marginBottom: '6px' }}>
 <span style={{ color: '#00FF41' }}>skills</span><span style={{ color: '#00FF41' }}>: [</span>
@@ -709,7 +707,6 @@ transform: 'translateX(-50%)'
 </svg>
 </motion.div>
 </section>
-
 {/* About Section */}
 <section
 id="about"
@@ -860,7 +857,6 @@ color: '#A8DADC'
 </div>
 </div>
 </section>
-
 {/* Skills Section */}
 <section
 id="skills"
@@ -941,7 +937,6 @@ borderRadius: '9999px'
 </div>
 </div>
 </section>
-
 {/* Projects Section - 修改后的部分 */}
 <section
 id="projects"
@@ -1082,7 +1077,6 @@ View Project
 </div>
 </div>
 </section>
-
 {/* Contact Section */}
 <section
 id="contact"
@@ -1347,53 +1341,53 @@ icon: (
 }
 ].map((platform) => (
 <motion.a
-key={platform.name}
-href={platform.url}
-target={['Discord', 'GitHub', 'Twitter', 'Email'].includes(platform.name) ? '_blank' : '_self'}
-rel={['Discord', 'GitHub', 'Twitter', 'Email'].includes(platform.name) ? 'noopener noreferrer' : ''}
-whileHover={{ scale: 1.15, y: -5 }}
-whileTap={{ scale: 0.95 }}
-style={{
-color: '#E4E4E4',
-transition: 'all 0.3s ease',
-textDecoration: 'none'
-}}
-onMouseEnter={(e) => {
-e.currentTarget.style.color = '#A8DADC';
-}}
-onMouseLeave={(e) => {
-e.currentTarget.style.color = '#E4E4E4';
-}}
+	key={platform.name}
+	href={platform.url}
+	target={platform.name === 'Email' ? '_blank' : (['Discord', 'GitHub', 'Twitter'].includes(platform.name) ? '_blank' : '_self')}
+	rel={platform.name === 'Email' ? 'noopener noreferrer' : (['Discord', 'GitHub', 'Twitter'].includes(platform.name) ? 'noopener noreferrer' : '')}
+	whileHover={{ scale: 1.15, y: -5 }}
+	whileTap={{ scale: 0.95 }}
+	style={{
+		color: '#E4E4E4',
+		transition: 'all 0.3s ease',
+		textDecoration: 'none'
+	}}
+	onMouseEnter={(e) => {
+		e.currentTarget.style.color = '#A8DADC';
+	}}
+	onMouseLeave={(e) => {
+		e.currentTarget.style.color = '#E4E4E4';
+	}}
 >
-<div style={{
-width: '48px',
-height: '48px',
-backgroundColor: 'rgba(44, 44, 44, 0.8)',
-borderRadius: '50%',
-display: 'flex',
-alignItems: 'center',
-justifyContent: 'center',
-border: '1px solid rgba(168, 218, 220, 0.2)',
-transition: 'all 0.3s ease'
-}}
-onMouseEnter={(e) => {
-e.currentTarget.style.borderColor = 'rgba(168, 218, 220, 0.5)';
-e.currentTarget.style.backgroundColor = 'rgba(168, 218, 220, 0.1)';
-}}
-onMouseLeave={(e) => {
-e.currentTarget.style.borderColor = 'rgba(168, 218, 220, 0.2)';
-e.currentTarget.style.backgroundColor = 'rgba(44, 44, 44, 0.8)';
-}}
->
-{typeof platform.icon === 'string' ? (
-<span style={{
-fontSize: '0.875rem',
-fontWeight: '600'
-}}>{platform.icon}</span>
-) : (
-platform.icon
-)}
-</div>
+	<div style={{
+		width: '48px',
+		height: '48px',
+		backgroundColor: 'rgba(44, 44, 44, 0.8)',
+		borderRadius: '50%',
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		border: '1px solid rgba(168, 218, 220, 0.2)',
+		transition: 'all 0.3s ease'
+	}}
+	onMouseEnter={(e) => {
+		e.currentTarget.style.borderColor = 'rgba(168, 218, 220, 0.5)';
+		e.currentTarget.style.backgroundColor = 'rgba(168, 218, 220, 0.1)';
+	}}
+	onMouseLeave={(e) => {
+		e.currentTarget.style.borderColor = 'rgba(168, 218, 220, 0.2)';
+		e.currentTarget.style.backgroundColor = 'rgba(44, 44, 44, 0.8)';
+	}}
+	>
+		{typeof platform.icon === 'string' ? (
+			<span style={{
+				fontSize: '0.875rem',
+				fontWeight: '600'
+			}}>{platform.icon}</span>
+		) : (
+			platform.icon
+		)}
+	</div>
 </motion.a>
 ))}
 </div>
@@ -1402,22 +1396,194 @@ platform.icon
 </div>
 </section>
 </main>
-{/* Footer */}
+{/* Enhanced Footer */}
 <footer style={{
-padding: '32px 0',
-borderTop: '1px solid rgba(168, 218, 220, 0.3)'
+backgroundColor: '#1E1E1E',
+borderTop: '1px solid rgba(168, 218, 220, 0.3)',
+padding: '48px 0 24px',
+color: '#E4E4E4'
 }}>
 <div style={{
-padding: '0 24px',
+maxWidth: '1200px',
+margin: '0 auto',
+padding: '0 24px'
+}}>
+<div className="footer-grid" style={{
+display: 'grid',
+gridTemplateColumns: '1fr',
+gap: '32px',
+marginBottom: '40px'
+}}>
+{/* About Section */}
+<div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+<h3 style={{
+fontSize: '1.25rem',
+fontWeight: 'bold',
+color: '#A8DADC',
+marginBottom: '8px'
+}}>About Me</h3>
+<p style={{ fontSize: '0.875rem', lineHeight: '1.5', color: '#CCCCCC' }}>
+I'm a passionate full-stack developer with expertise in modern web technologies. 
+I create beautiful, functional applications that solve real-world problems.
+</p>
+</div>
+
+{/* Quick Links */}
+<div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+<h3 style={{
+fontSize: '1.25rem',
+fontWeight: 'bold',
+color: '#A8DADC',
+marginBottom: '8px'
+}}>Quick Links</h3>
+<ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+{['home', 'about', 'skills', 'projects', 'contact'].map((item) => (
+<li key={item}>
+<button
+onClick={() => scrollToSection(item)}
+style={{
+background: 'none',
+border: 'none',
+color: '#CCCCCC',
+cursor: 'pointer',
+fontSize: '0.875rem',
+textAlign: 'left',
+padding: '4px 0',
+transition: 'all 0.3s ease'
+}}
+onMouseEnter={(e) => {
+e.target.style.color = '#A8DADC';
+}}
+onMouseLeave={(e) => {
+e.target.style.color = '#CCCCCC';
+}}
+>
+{item.charAt(0).toUpperCase() + item.slice(1)}
+</button>
+</li>
+))}
+</ul>
+</div>
+
+{/* Social Media */}
+<div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+<h3 style={{
+fontSize: '1.25rem',
+fontWeight: 'bold',
+color: '#A8DADC',
+marginBottom: '8px'
+}}>Connect With Me</h3>
+<div style={{ display: 'flex', gap: '16px' }}>
+{[
+{
+name: 'Facebook',
+url: 'https://www.facebook.com/Bivaas.B',
+icon: (
+<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+<path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
+</svg>
+)
+},
+{
+name: 'Instagram',
+url: 'https://www.instagram.com/_bivaas_/',
+icon: (
+<svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+<path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1112.324 0 6.162 6.162 0 01-12.324 0zM12 16a4 4 0 110-8 4 4 0 010 8zm4.965-10.405a1.44 1.44 0 112.881.001 1.44 1.44 0 01-2.881-.001z" />
+</svg>
+)
+}
+].map((platform) => (
+<motion.a
+key={platform.name}
+href={platform.url}
+target="_blank"
+rel="noopener noreferrer"
+whileHover={{ scale: 1.1, y: -3 }}
+whileTap={{ scale: 0.95 }}
+style={{
+color: '#CCCCCC',
+transition: 'all 0.3s ease',
+textDecoration: 'none',
+display: 'flex',
+alignItems: 'center',
+justifyContent: 'center',
+width: '40px',
+height: '40px',
+borderRadius: '50%',
+backgroundColor: 'rgba(44, 44, 44, 0.8)',
+border: '1px solid rgba(168, 218, 220, 0.2)'
+}}
+onMouseEnter={(e) => {
+e.currentTarget.style.color = '#A8DADC';
+e.currentTarget.style.borderColor = 'rgba(168, 218, 220, 0.5)';
+e.currentTarget.style.backgroundColor = 'rgba(168, 218, 220, 0.1)';
+}}
+onMouseLeave={(e) => {
+e.currentTarget.style.color = '#CCCCCC';
+e.currentTarget.style.borderColor = 'rgba(168, 218, 220, 0.2)';
+e.currentTarget.style.backgroundColor = 'rgba(44, 44, 44, 0.8)';
+}}
+>
+{platform.icon}
+</motion.a>
+))}
+</div>
+</div>
+
+{/* Contact Info */}
+<div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+<h3 style={{
+fontSize: '1.25rem',
+fontWeight: 'bold',
+color: '#A8DADC',
+marginBottom: '8px'
+}}>Contact Info</h3>
+<div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+<div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+<svg style={{ width: '16px', height: '16px', color: '#A8DADC' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+</svg>
+<a href="https://mail.google.com/mail/?view=cm&fs=1&to=bivaasbaral7@gmail.com" style={{
+color: '#CCCCCC',
+fontSize: '0.875rem',
+textDecoration: 'none',
+transition: 'all 0.3s ease'
+}}
+onMouseEnter={(e) => {
+e.target.style.color = '#A8DADC';
+}}
+onMouseLeave={(e) => {
+e.target.style.color = '#CCCCCC';
+}}>
+bivaasbaral7@gmail.com
+</a>
+</div>
+<div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+<svg style={{ width: '16px', height: '16px', color: '#A8DADC' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+</svg>
+<span style={{ color: '#CCCCCC', fontSize: '0.875rem' }}>Nepal 🇳🇵</span>
+</div>
+</div>
+</div>
+</div>
+
+{/* Copyright */}
+<div style={{
+borderTop: '1px solid rgba(168, 218, 220, 0.2)',
+paddingTop: '24px',
 textAlign: 'center'
 }}>
 <motion.p
 initial={{ opacity: 0 }}
 animate={{ opacity: 1 }}
-style={{ color: '#E4E4E4' }}
+style={{ color: '#CCCCCC', fontSize: '0.875rem' }}
 >
 © {new Date().getFullYear()} Bivaas Baral. All rights reserved.
 </motion.p>
+</div>
 </div>
 </footer>
 </div>
