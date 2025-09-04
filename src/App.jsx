@@ -758,7 +758,7 @@ filter: 'blur(40px)',
 opacity: 0.3
 }}></div>
 <img
-src="https://picsum.photos/seed/bivaas/400/400.jpg"
+src="/blogo.png"
 alt="Bivaas Baral, Full Stack Developer"
 loading="lazy"
 style={{
