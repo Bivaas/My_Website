@@ -15,7 +15,11 @@ const Portfolio = () => {
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
   const [quotes, setQuotes] = useState([]);
   const [quotesLoaded, setQuotesLoaded] = useState(false);
+  const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
   const sections = useRef([]);
+  
+  // Roles for the animation
+  const roles = ['Full Stack Developer', 'UI/UX Designer', 'Problem Solver', 'Student'];
   
   // Sample quotes for the status section - can be updated from backend later
   const allQuotes = [
@@ -58,6 +62,15 @@ const Portfolio = () => {
     
     return () => clearInterval(interval);
   }, [quotes]);
+  
+  // Auto-rotate roles
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentRoleIndex((prevIndex) => (prevIndex + 1) % roles.length);
+    }, 3000); // Change role every 3 seconds
+    
+    return () => clearInterval(interval);
+  }, [roles.length]);
   
   // IntersectionObserver for active section detection
   useEffect(() => {
@@ -150,7 +163,12 @@ const Portfolio = () => {
       icon: '💬',
       technologies: ['React', 'Node.js', 'MongoDB']
     },
-    
+    {
+      title: 'AI Assistant',
+      description: 'Intelligent virtual assistant',
+      icon: '🤖',
+      technologies: ['React', 'Socket.io', 'Express']
+    }
   ];
   
   return (
@@ -159,6 +177,21 @@ const Portfolio = () => {
         @keyframes pulse {
           0%, 100% { opacity: 1; }
           50% { opacity: 0.5; }
+        }
+        @keyframes gradient {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        @keyframes float {
+          0% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+          100% { transform: translateY(0px); }
+        }
+        @keyframes glow {
+          0% { box-shadow: 0 0 5px rgba(236, 72, 153, 0.5); }
+          50% { box-shadow: 0 0 20px rgba(236, 72, 153, 0.8), 0 0 30px rgba(236, 72, 153, 0.4); }
+          100% { box-shadow: 0 0 5px rgba(236, 72, 153, 0.5); }
         }
         @media (min-width: 640px) {
           .responsive-flex-row { flex-direction: row !important; }
@@ -185,21 +218,23 @@ const Portfolio = () => {
           border-radius: 3px;
         }
         .sidebar-scroll::-webkit-scrollbar-thumb {
-          background: rgba(79, 70, 229, 0.3);
+          background: rgba(236, 72, 153, 0.3);
           border-radius: 3px;
         }
         .sidebar-scroll::-webkit-scrollbar-thumb:hover {
-          background: rgba(79, 70, 229, 0.5);
+          background: rgba(236, 72, 153, 0.5);
         }
         /* For Firefox */
         .sidebar-scroll {
           scrollbar-width: thin;
-          scrollbar-color: rgba(79, 70, 229, 0.3) rgba(44, 44, 44, 0.3);
+          scrollbar-color: rgba(236, 72, 153, 0.3) rgba(44, 44, 44, 0.3);
         }
         /* Quote card styling */
         .quote-card-wrapper {
           position: relative;
-          background: linear-gradient(to right, #4F46E5, #10B981);
+          background: linear-gradient(45deg, #EC4899, #8B5CF6, #3B82F6);
+          background-size: 200% 200%;
+          animation: gradient 15s ease infinite;
           border-radius: 0.75rem;
           padding: 2px;
           margin: 4rem auto 3rem;
@@ -215,7 +250,7 @@ const Portfolio = () => {
         .quote-label {
           font-size: 0.875rem;
           font-weight: 600;
-          color: #a5b4fc;
+          color: #f9a8d4;
           text-transform: uppercase;
           letter-spacing: 0.025em;
           margin-bottom: 1rem;
@@ -227,7 +262,7 @@ const Portfolio = () => {
         .quote-mark {
           position: absolute;
           font-size: 4rem;
-          color: rgba(165, 180, 252, 0.2);
+          color: rgba(249, 168, 212, 0.2);
           font-family: Georgia, serif;
           line-height: 1;
         }
@@ -250,7 +285,7 @@ const Portfolio = () => {
         .quote-author {
           font-size: 1.2rem;
           text-align: right;
-          color: #a5b4fc;
+          color: #f9a8d4;
           margin-top: 1.5rem;
           font-weight: 500;
         }
@@ -264,12 +299,12 @@ const Portfolio = () => {
           width: 8px;
           height: 8px;
           border-radius: 50%;
-          background-color: rgba(165, 180, 252, 0.3);
+          background-color: rgba(249, 168, 212, 0.3);
           cursor: pointer;
           transition: all 0.3s ease;
         }
         .quote-indicator.active {
-          background-color: #a5b4fc;
+          background-color: #f9a8d4;
           transform: scale(1.2);
         }
         .quote-loading {
@@ -302,15 +337,15 @@ const Portfolio = () => {
           display: inline-flex;
           align-items: center;
           padding: 0.25rem 0.75rem;
-          background-color: rgba(79, 70, 229, 0.15);
-          color: #e0e7ff;
+          background-color: rgba(236, 72, 153, 0.15);
+          color: #fbcfe8;
           border-radius: 9999px;
           font-size: 0.75rem;
           font-weight: 500;
           transition: all 0.2s ease;
         }
         .tech-badge:hover {
-          background-color: rgba(79, 70, 229, 0.25);
+          background-color: rgba(236, 72, 153, 0.25);
           transform: translateY(-2px);
         }
         /* Project card hover effect */
@@ -323,6 +358,99 @@ const Portfolio = () => {
           transform: translateY(-8px);
           box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
         }
+        .project-card::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 4px;
+          background: linear-gradient(90deg, #EC4899, #8B5CF6, #3B82F6);
+          background-size: 200% 200%;
+          animation: gradient 3s ease infinite;
+          transform: scaleX(0);
+          transition: transform 0.3s ease;
+        }
+        .project-card:hover::before {
+          transform: scaleX(1);
+        }
+        /* Animated background for project cards */
+        .project-card-bg {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(135deg, rgba(236, 72, 153, 0.05), rgba(139, 92, 246, 0.05), rgba(59, 130, 246, 0.05));
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          z-index: 0;
+        }
+        .project-card:hover .project-card-bg {
+          opacity: 1;
+        }
+        .project-content {
+          position: relative;
+          z-index: 1;
+        }
+        /* Glowing effect for active project buttons */
+        .glow-button {
+          position: relative;
+          overflow: hidden;
+          transition: all 0.3s ease;
+        }
+        .glow-button::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+          transition: left 0.5s ease;
+        }
+        .glow-button:hover::before {
+          left: 100%;
+        }
+        /* Role animation styling */
+        .role-container {
+          position: relative;
+          display: inline-block;
+          min-width: 250px;
+          height: 1.5em;
+          vertical-align: middle;
+        }
+        .role-text {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          font-weight: 600;
+          background: linear-gradient(90deg, #EC4899, #8B5CF6, #3B82F6);
+          background-size: '200% 200%',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
+          animation: 'gradient 8s ease infinite';
+        }
+        .role-indicators {
+          display: flex;
+          justify-content: flex-start;
+          gap: 6px;
+          margin-top: 8px;
+        }
+        .role-indicator {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background-color: rgba(236, 72, 153, 0.3);
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+        .role-indicator.active {
+          background-color: #EC4899;
+          transform: scale(1.2);
+        }
       `}</style>
       <div style={{
         minHeight: '100vh',
@@ -331,7 +459,7 @@ const Portfolio = () => {
         color: '#e2e8f0',
         margin: 0,
         padding: 0,
-        fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+        fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif'"
       }}>
         {/* Navigation */}
         <nav style={{
@@ -341,7 +469,7 @@ const Portfolio = () => {
           backgroundColor: 'rgba(15, 23, 42, 0.95)',
           backdropFilter: 'blur(8px)',
           zIndex: 50,
-          borderBottom: '1px solid rgba(79, 70, 229, 0.2)'
+          borderBottom: '1px solid rgba(236, 72, 153, 0.2)'
         }}>
           <div style={{
             maxWidth: '1200px',
@@ -366,11 +494,11 @@ const Portfolio = () => {
                   onClick={() => setIsSidebarOpen(true)}
                   style={{
                     padding: '6px 10px',
-                    backgroundColor: 'rgba(79, 70, 229, 0.15)',
+                    backgroundColor: 'rgba(236, 72, 153, 0.15)',
                     borderRadius: '6px',
                     fontWeight: '500',
-                    border: '1px solid rgba(79, 70, 229, 0.25)',
-                    color: '#a5b4fc',
+                    border: '1px solid rgba(236, 72, 153, 0.25)',
+                    color: '#f9a8d4',
                     cursor: 'pointer',
                     transition: 'all 0.3s ease',
                     fontSize: '11px',
@@ -379,12 +507,12 @@ const Portfolio = () => {
                     gap: '4px'
                   }}
                   onMouseEnter={(e) => {
-                    e.target.style.backgroundColor = 'rgba(79, 70, 229, 0.25)';
-                    e.target.style.borderColor = 'rgba(79, 70, 229, 0.4)';
+                    e.target.style.backgroundColor = 'rgba(236, 72, 153, 0.25)';
+                    e.target.style.borderColor = 'rgba(236, 72, 153, 0.4)';
                   }}
                   onMouseLeave={(e) => {
-                    e.target.style.backgroundColor = 'rgba(79, 70, 229, 0.15)';
-                    e.target.style.borderColor = 'rgba(79, 70, 229, 0.25)';
+                    e.target.style.backgroundColor = 'rgba(236, 72, 153, 0.15)';
+                    e.target.style.borderColor = 'rgba(236, 72, 153, 0.25)';
                   }}
                 >
                   <svg style={{ width: '11px', height: '11px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -397,12 +525,14 @@ const Portfolio = () => {
                   style={{
                     fontSize: '22px',
                     fontWeight: 'bold',
-                    background: 'linear-gradient(to right, #4F46E5, #10B981)',
+                    background: 'linear-gradient(90deg, #EC4899, #8B5CF6, #3B82F6)',
+                    backgroundSize: '200% 200%',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text',
                     cursor: 'pointer',
-                    padding: '2px 0'
+                    padding: '2px 0',
+                    animation: 'gradient 8s ease infinite'
                   }}
                   onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 >
@@ -422,7 +552,7 @@ const Portfolio = () => {
                       position: 'relative',
                       padding: '6px 10px',
                       transition: 'all 0.3s ease',
-                      color: activeSection === item ? '#a5b4fc' : '#e2e8f0',
+                      color: activeSection === item ? '#f9a8d4' : '#e2e8f0',
                       backgroundColor: 'transparent',
                       border: 'none',
                       cursor: 'pointer',
@@ -431,7 +561,7 @@ const Portfolio = () => {
                     }}
                     onMouseEnter={(e) => {
                       if (activeSection !== item) {
-                        e.target.style.color = '#c7d2fe';
+                        e.target.style.color = '#c084fc';
                       }
                     }}
                     onMouseLeave={(e) => {
@@ -450,7 +580,7 @@ const Portfolio = () => {
                           left: 0,
                           right: 0,
                           height: '2px',
-                          backgroundColor: '#4F46E5'
+                          backgroundColor: '#EC4899'
                         }}
                       />
                     )}
@@ -473,7 +603,7 @@ const Portfolio = () => {
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 aria-label={isMenuOpen ? "Close menu" : "Open menu"}
                 onMouseEnter={(e) => {
-                  e.target.style.backgroundColor = 'rgba(79, 70, 229, 0.1)';
+                  e.target.style.backgroundColor = 'rgba(236, 72, 153, 0.1)';
                 }}
                 onMouseLeave={(e) => {
                   e.target.style.backgroundColor = 'transparent';
@@ -513,8 +643,8 @@ const Portfolio = () => {
                       padding: '8px 12px',
                       borderRadius: '8px',
                       transition: 'all 0.3s ease',
-                      backgroundColor: activeSection === item ? 'rgba(79, 70, 229, 0.2)' : 'transparent',
-                      color: activeSection === item ? '#a5b4fc' : '#e2e8f0',
+                      backgroundColor: activeSection === item ? 'rgba(236, 72, 153, 0.2)' : 'transparent',
+                      color: activeSection === item ? '#f9a8d4' : '#e2e8f0',
                       border: 'none',
                       cursor: 'pointer',
                       fontSize: '16px',
@@ -522,7 +652,7 @@ const Portfolio = () => {
                     }}
                     onMouseEnter={(e) => {
                       if (activeSection !== item) {
-                        e.target.style.backgroundColor = 'rgba(79, 70, 229, 0.1)';
+                        e.target.style.backgroundColor = 'rgba(236, 72, 153, 0.1)';
                       }
                     }}
                     onMouseLeave={(e) => {
@@ -576,7 +706,7 @@ const Portfolio = () => {
                   backgroundColor: 'rgba(15, 23, 42, 0.95)',
                   backdropFilter: 'blur(10px)',
                   zIndex: 100,
-                  borderRight: '1px solid rgba(79, 70, 229, 0.3)',
+                  borderRight: '1px solid rgba(236, 72, 153, 0.3)',
                   fontFamily: 'monospace',
                   display: 'flex',
                   flexDirection: 'column'
@@ -593,11 +723,11 @@ const Portfolio = () => {
                   <h2 style={{
                     fontSize: '22px',
                     fontWeight: 'bold',
-                    color: '#a5b4fc',
+                    color: '#f9a8d4',
                     fontFamily: 'monospace',
-                    textShadow: '0 0 10px rgba(79, 70, 229, 0.3)'
+                    textShadow: '0 0 10px rgba(236, 72, 153, 0.3)'
                   }}>
-                    &lt;<span style={{ color: '#c7d2fe' }}>developer</span>-<span style={{ color: '#ddd6fe' }}>info</span> /&gt;
+                    &lt;<span style={{ color: '#c084fc' }}>developer</span>-<span style={{ color: '#93c5fd' }}>info</span> /&gt;
                   </h2>
                   <button
                     onClick={() => setIsSidebarOpen(false)}
@@ -611,7 +741,7 @@ const Portfolio = () => {
                       transition: 'all 0.3s ease'
                     }}
                     onMouseEnter={(e) => {
-                      e.target.style.backgroundColor = 'rgba(79, 70, 229, 0.2)';
+                      e.target.style.backgroundColor = 'rgba(236, 72, 153, 0.2)';
                     }}
                     onMouseLeave={(e) => {
                       e.target.style.backgroundColor = 'transparent';
@@ -645,69 +775,69 @@ const Portfolio = () => {
                       backgroundColor: 'rgba(0, 0, 0, 0.8)',
                       padding: '24px',
                       borderRadius: '12px',
-                      border: '1px solid #4F46E5',
-                      color: '#a5b4fc',
-                      boxShadow: '0 0 20px rgba(79, 70, 229, 0.2)',
+                      border: '1px solid #EC4899',
+                      color: '#f9a8d4',
+                      boxShadow: '0 0 20px rgba(236, 72, 153, 0.2)',
                       wordWrap: 'break-word',
                       overflowWrap: 'break-word',
                       maxWidth: '100%'
                     }}>
                       {/* Developer Object */}
-                      <div style={{ color: '#a5b4fc', fontSize: '13px', marginBottom: '12px' }}>
-                        <span style={{ color: '#a5b4fc' }}>const</span> <span style={{ color: '#a5b4fc' }}>developer</span> = {'{'}
+                      <div style={{ color: '#f9a8d4', fontSize: '13px', marginBottom: '12px' }}>
+                        <span style={{ color: '#f9a8d4' }}>const</span> <span style={{ color: '#f9a8d4' }}>developer</span> = {'{'}
                       </div>
                       <div style={{ marginLeft: '12px', marginBottom: '16px' }}>
                         <div style={{ marginBottom: '6px' }}>
-                          <span style={{ color: '#a5b4fc' }}>name</span><span style={{ color: '#a5b4fc' }}>:</span> <span style={{ color: '#c7d2fe', fontWeight: 'bold', textShadow: '0 0 8px #c7d2fe' }}>"Bivaas Baral"</span><span style={{ color: '#a5b4fc' }}>,</span>
+                          <span style={{ color: '#f9a8d4' }}>name</span><span style={{ color: '#f9a8d4' }}>:</span> <span style={{ color: '#fbcfe8', fontWeight: 'bold', textShadow: '0 0 8px #fbcfe8' }}>"Bivaas Baral"</span><span style={{ color: '#f9a8d4' }}>,</span>
                         </div>
                         <div style={{ marginBottom: '6px' }}>
-                          <span style={{ color: '#a5b4fc' }}>role</span><span style={{ color: '#a5b4fc' }}>:</span> <span style={{ color: '#c7d2fe', fontWeight: 'bold', textShadow: '0 0 8px #c7d2fe' }}>"Full Stack Developer"</span><span style={{ color: '#a5b4fc' }}>,</span>
+                          <span style={{ color: '#f9a8d4' }}>role</span><span style={{ color: '#f9a8d4' }}>:</span> <span style={{ color: '#fbcfe8', fontWeight: 'bold', textShadow: '0 0 8px #fbcfe8' }}>"Full Stack Developer"</span><span style={{ color: '#f9a8d4' }}>,</span>
                         </div>
                         <div style={{ marginBottom: '6px' }}>
-                          <span style={{ color: '#a5b4fc' }}>location</span><span style={{ color: '#a5b4fc' }}>:</span> <span style={{ color: '#c7d2fe', fontWeight: 'bold', textShadow: '0 0 8px #c7d2fe' }}>"Nepal 🇳🇵"</span><span style={{ color: '#a5b4fc' }}>,</span>
+                          <span style={{ color: '#f9a8d4' }}>location</span><span style={{ color: '#f9a8d4' }}>:</span> <span style={{ color: '#fbcfe8', fontWeight: 'bold', textShadow: '0 0 8px #fbcfe8' }}>"Nepal 🇳🇵"</span><span style={{ color: '#f9a8d4' }}>,</span>
                         </div>
                         <div style={{ marginBottom: '6px' }}>
-                          <span style={{ color: '#a5b4fc' }}>experience</span><span style={{ color: '#a5b4fc' }}>:</span> <span style={{ color: '#c7d2fe', fontWeight: 'bold', textShadow: '0 0 8px #c7d2fe' }}>"1+ years"</span><span style={{ color: '#a5b4fc' }}>,</span>
+                          <span style={{ color: '#f9a8d4' }}>experience</span><span style={{ color: '#f9a8d4' }}>:</span> <span style={{ color: '#fbcfe8', fontWeight: 'bold', textShadow: '0 0 8px #fbcfe8' }}>"1+ years"</span><span style={{ color: '#f9a8d4' }}>,</span>
                         </div>
                         <div style={{ marginBottom: '12px' }}>
-                          <span style={{ color: '#a5b4fc' }}>status</span><span style={{ color: '#a5b4fc' }}>:</span> <span style={{ color: '#c7d2fe', fontWeight: 'bold', textShadow: '0 0 8px #c7d2fe' }}>"available"</span><span style={{ color: '#a5b4fc' }}>,</span>
+                          <span style={{ color: '#f9a8d4' }}>status</span><span style={{ color: '#f9a8d4' }}>:</span> <span style={{ color: '#fbcfe8', fontWeight: 'bold', textShadow: '0 0 8px #fbcfe8' }}>"available"</span><span style={{ color: '#f9a8d4' }}>,</span>
                         </div>
                         <div style={{ marginBottom: '6px' }}>
-                          <span style={{ color: '#a5b4fc' }}>skills</span><span style={{ color: '#a5b4fc' }}>: [</span>
+                          <span style={{ color: '#f9a8d4' }}>skills</span><span style={{ color: '#f9a8d4' }}>: [</span>
                         </div>
                         <div style={{ marginLeft: '12px', marginBottom: '6px' }}>
-                          <span style={{ color: '#c7d2fe', fontWeight: 'bold', textShadow: '0 0 8px #c7d2fe' }}>"React"</span><span style={{ color: '#a5b4fc' }}>, </span>
-                          <span style={{ color: '#c7d2fe', fontWeight: 'bold', textShadow: '0 0 8px #c7d2fe' }}>"JavaScript"</span><span style={{ color: '#a5b4fc' }}>, </span>
-                          <span style={{ color: '#c7d2fe', fontWeight: 'bold', textShadow: '0 0 8px #c7d2fe' }}>"Python"</span><span style={{ color: '#a5b4fc' }}>,</span>
+                          <span style={{ color: '#fbcfe8', fontWeight: 'bold', textShadow: '0 0 8px #fbcfe8' }}>"React"</span><span style={{ color: '#f9a8d4' }}>, </span>
+                          <span style={{ color: '#fbcfe8', fontWeight: 'bold', textShadow: '0 0 8px #fbcfe8' }}>"JavaScript"</span><span style={{ color: '#f9a8d4' }}>, </span>
+                          <span style={{ color: '#fbcfe8', fontWeight: 'bold', textShadow: '0 0 8px #fbcfe8' }}>"Python"</span><span style={{ color: '#f9a8d4' }}>,</span>
                         </div>
                         <div style={{ marginLeft: '12px', marginBottom: '6px' }}>
-                          <span style={{ color: '#c7d2fe', fontWeight: 'bold', textShadow: '0 0 8px #c7d2fe' }}>"Node.js"</span><span style={{ color: '#a5b4fc' }}>, </span>
-                          <span style={{ color: '#c7d2fe', fontWeight: 'bold', textShadow: '0 0 8px #c7d2fe' }}>"MongoDB"</span><span style={{ color: '#a5b4fc' }}>, </span>
-                          <span style={{ color: '#c7d2fe', fontWeight: 'bold', textShadow: '0 0 8px #c7d2fe' }}>"HTML/CSS"</span>
+                          <span style={{ color: '#fbcfe8', fontWeight: 'bold', textShadow: '0 0 8px #fbcfe8' }}>"Node.js"</span><span style={{ color: '#f9a8d4' }}>, </span>
+                          <span style={{ color: '#fbcfe8', fontWeight: 'bold', textShadow: '0 0 8px #fbcfe8' }}>"MongoDB"</span><span style={{ color: '#f9a8d4' }}>, </span>
+                          <span style={{ color: '#fbcfe8', fontWeight: 'bold', textShadow: '0 0 8px #fbcfe8' }}>"HTML/CSS"</span>
                         </div>
                         <div style={{ marginBottom: '12px' }}>
-                          <span style={{ color: '#a5b4fc' }}>],</span>
+                          <span style={{ color: '#f9a8d4' }}>],</span>
                         </div>
                         <div style={{ marginBottom: '6px' }}>
-                          <span style={{ color: '#a5b4fc' }}>contact</span><span style={{ color: '#a5b4fc' }}>: {'{'}</span>
+                          <span style={{ color: '#f9a8d4' }}>contact</span><span style={{ color: '#f9a8d4' }}>: {'{'}</span>
                         </div>
                         <div style={{ marginLeft: '12px', marginBottom: '4px' }}>
-                          <span style={{ color: '#a5b4fc' }}>email</span><span style={{ color: '#a5b4fc' }}>:</span> <span style={{
-                            color: '#c7d2fe',
+                          <span style={{ color: '#f9a8d4' }}>email</span><span style={{ color: '#f9a8d4' }}>:</span> <span style={{
+                            color: '#fbcfe8',
                             fontWeight: 'bold',
-                            textShadow: '0 0 8px #c7d2fe',
+                            textShadow: '0 0 8px #fbcfe8',
                             wordWrap: 'break-word',
                             overflowWrap: 'break-word'
-                          }}>"bivaasbaral7@gmail.com"</span><span style={{ color: '#a5b4fc' }}>,</span>
+                          }}>"bivaasbaral7@gmail.com"</span><span style={{ color: '#f9a8d4' }}>,</span>
                         </div>
                         <div style={{ marginLeft: '12px', marginBottom: '6px' }}>
-                          <span style={{ color: '#a5b4fc' }}>github</span><span style={{ color: '#a5b4fc' }}>:</span> <span style={{ color: '#c7d2fe', fontWeight: 'bold', textShadow: '0 0 8px #c7d2fe' }}>"Bivaas"</span>
+                          <span style={{ color: '#f9a8d4' }}>github</span><span style={{ color: '#f9a8d4' }}>:</span> <span style={{ color: '#fbcfe8', fontWeight: 'bold', textShadow: '0 0 8px #fbcfe8' }}>"Bivaas"</span>
                         </div>
                         <div style={{ marginBottom: '6px' }}>
-                          <span style={{ color: '#a5b4fc' }}>{'}'}</span>
+                          <span style={{ color: '#f9a8d4' }}>{'}'}</span>
                         </div>
                       </div>
-                      <div style={{ color: '#a5b4fc' }}>
+                      <div style={{ color: '#f9a8d4' }}>
                         {'}'};
                       </div>
                     </div>
@@ -739,7 +869,7 @@ const Portfolio = () => {
                 left: '25%',
                 width: '288px',
                 height: '288px',
-                backgroundColor: '#4F46E5',
+                backgroundColor: '#EC4899',
                 borderRadius: '50%',
                 mixBlendMode: 'multiply',
                 filter: 'blur(40px)',
@@ -752,7 +882,20 @@ const Portfolio = () => {
                 right: '25%',
                 width: '288px',
                 height: '288px',
-                backgroundColor: '#10B981',
+                backgroundColor: '#8B5CF6',
+                borderRadius: '50%',
+                mixBlendMode: 'multiply',
+                filter: 'blur(40px)',
+                opacity: 0.15,
+                animation: 'pulse 2s infinite'
+              }}></div>
+              <div style={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                width: '288px',
+                height: '288px',
+                backgroundColor: '#3B82F6',
                 borderRadius: '50%',
                 mixBlendMode: 'multiply',
                 filter: 'blur(40px)',
@@ -782,14 +925,18 @@ const Portfolio = () => {
                 >
                   Hi, I'm{' '}
                   <span style={{
-                    background: 'linear-gradient(to right, #4F46E5, #10B981)',
+                    background: 'linear-gradient(90deg, #EC4899, #8B5CF6, #3B82F6)',
+                    backgroundSize: '200% 200%',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text'
+                    backgroundClip: 'text',
+                    animation: 'gradient 8s ease infinite'
                   }}>
                     Bivaas Baral
                   </span>
                 </motion.h1>
+                
+                {/* New slide/fade-in animation for roles */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -798,18 +945,39 @@ const Portfolio = () => {
                     fontSize: '1.25rem',
                     color: '#cbd5e1',
                     marginBottom: '32px',
-                    height: '48px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                     '@media (min-width: 768px)': {
                       fontSize: '1.5rem'
                     }
                   }}
                 >
                   <span style={{ marginRight: '8px' }}>I'm a</span>
-                  <span style={{ color: '#a5b4fc' }}>
-                    <TypewriterEffect
-                      words={['Full Stack Developer', 'UI/UX Designer', 'Problem Solver','Student']}
-                    />
-                  </span>
+                  <div className="role-container">
+                    <AnimatePresence mode="wait">
+                      <motion.span
+                        key={currentRoleIndex}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        transition={{ duration: 0.5 }}
+                        className="role-text"
+                        style={{
+                          display: 'inline-block',
+                          fontWeight: 600,
+                          background: 'linear-gradient(90deg, #EC4899, #8B5CF6, #3B82F6)',
+                          backgroundSize: '200% 200%',
+                          WebkitBackgroundClip: 'text',
+                          WebkitTextFillColor: 'transparent',
+                          backgroundClip: 'text',
+                          animation: 'gradient 8s ease infinite'
+                        }}
+                      >
+                        {roles[currentRoleIndex]}
+                      </motion.span>
+                    </AnimatePresence>
+                  </div>
                 </motion.div>
                 
                 {/* Interactive Quote Section */}
@@ -876,22 +1044,23 @@ const Portfolio = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => scrollToSection('projects')}
+                    className="glow-button"
                     style={{
                       padding: '12px 32px',
-                      background: '#4F46E5',
+                      background: 'linear-gradient(90deg, #EC4899, #8B5CF6)',
                       borderRadius: '9999px',
                       fontWeight: '600',
                       border: 'none',
                       color: 'white',
                       cursor: 'pointer',
                       transition: 'all 0.3s ease',
-                      boxShadow: '0 0 0 0 rgba(79, 70, 229, 0.25)'
+                      boxShadow: '0 0 0 0 rgba(236, 72, 153, 0.25)'
                     }}
                     onMouseEnter={(e) => {
-                      e.target.style.boxShadow = '0 10px 25px rgba(79, 70, 229, 0.25)';
+                      e.target.style.boxShadow = '0 10px 25px rgba(236, 72, 153, 0.25)';
                     }}
                     onMouseLeave={(e) => {
-                      e.target.style.boxShadow = '0 0 0 0 rgba(79, 70, 229, 0.25)';
+                      e.target.style.boxShadow = '0 0 0 0 rgba(236, 72, 153, 0.25)';
                     }}
                   >
                     View My Work
@@ -902,7 +1071,7 @@ const Portfolio = () => {
                     onClick={() => scrollToSection('contact')}
                     style={{
                       padding: '12px 32px',
-                      border: '2px solid #4F46E5',
+                      border: '2px solid #EC4899',
                       borderRadius: '9999px',
                       fontWeight: '600',
                       backgroundColor: 'transparent',
@@ -911,7 +1080,7 @@ const Portfolio = () => {
                       transition: 'all 0.3s ease'
                     }}
                     onMouseEnter={(e) => {
-                      e.target.style.backgroundColor = 'rgba(79, 70, 229, 0.1)';
+                      e.target.style.backgroundColor = 'rgba(236, 72, 153, 0.1)';
                     }}
                     onMouseLeave={(e) => {
                       e.target.style.backgroundColor = 'transparent';
@@ -932,7 +1101,7 @@ const Portfolio = () => {
                 transform: 'translateX(-50%)'
               }}
             >
-              <svg style={{ width: '24px', height: '24px', color: '#a5b4fc' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg style={{ width: '24px', height: '24px', color: '#f9a8d4' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
               </svg>
             </motion.div>
@@ -960,7 +1129,7 @@ const Portfolio = () => {
                   marginBottom: '48px'
                 }}
               >
-                About <span style={{ color: '#a5b4fc' }}>Me</span>
+                About <span style={{ color: '#f9a8d4' }}>Me</span>
               </motion.h2>
               <div style={{
                 display: 'grid',
@@ -981,7 +1150,7 @@ const Portfolio = () => {
                     <div style={{
                       position: 'absolute',
                       inset: 0,
-                      background: 'linear-gradient(to right, #4F46E5, #10B981)',
+                      background: 'linear-gradient(135deg, #EC4899, #8B5CF6, #3B82F6)',
                       borderRadius: '50%',
                       filter: 'blur(40px)',
                       opacity: 0.2
@@ -998,7 +1167,7 @@ const Portfolio = () => {
                         maxWidth: '320px',
                         margin: '0 auto',
                         objectFit: 'cover',
-                        border: '4px solid rgba(79, 70, 229, 0.3)',
+                        border: '4px solid rgba(236, 72, 153, 0.3)',
                         display: 'block'
                       }}
                     />
@@ -1021,16 +1190,16 @@ const Portfolio = () => {
                   </p>
                   <blockquote style={{
                     fontSize: '1.25rem',
-                    color: '#a5b4fc',
+                    color: '#f9a8d4',
                     fontWeight: 'bold',
                     fontFamily: 'Georgia, serif',
                     fontStyle: 'italic',
                     margin: '20px 0 0 0',
                     padding: '18px 24px',
-                    background: 'rgba(79, 70, 229, 0.08)',
-                    borderLeft: '5px solid #4F46E5',
+                    background: 'rgba(236, 72, 153, 0.08)',
+                    borderLeft: '5px solid #EC4899',
                     borderRadius: '8px',
-                    boxShadow: '0 2px 8px rgba(79, 70, 229, 0.08)'
+                    boxShadow: '0 2px 8px rgba(236, 72, 153, 0.08)'
                   }}>
                     "I bring ideas to life through code."
                   </blockquote>
@@ -1064,21 +1233,21 @@ const Portfolio = () => {
                           backgroundColor: 'rgba(30, 41, 59, 0.8)',
                           padding: '16px',
                           borderRadius: '8px',
-                          border: '1px solid rgba(79, 70, 229, 0.3)',
+                          border: '1px solid rgba(236, 72, 153, 0.3)',
                           transition: 'all 0.3s ease',
                           cursor: 'pointer'
                         }}
                         onMouseEnter={(e) => {
-                          e.currentTarget.style.borderColor = 'rgba(79, 70, 229, 0.6)';
+                          e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.6)';
                         }}
                         onMouseLeave={(e) => {
-                          e.currentTarget.style.borderColor = 'rgba(79, 70, 229, 0.3)';
+                          e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.3)';
                         }}
                       >
                         <div style={{
                           fontSize: '1.5rem',
                           fontWeight: 'bold',
-                          color: '#a5b4fc'
+                          color: '#f9a8d4'
                         }}>{stat.value}</div>
                         <div style={{ color: '#cbd5e1' }}>{stat.label}</div>
                       </motion.div>
@@ -1111,7 +1280,7 @@ const Portfolio = () => {
                   marginBottom: '48px'
                 }}
               >
-                My <span style={{ color: '#a5b4fc' }}>Skills</span>
+                My <span style={{ color: '#f9a8d4' }}>Skills</span>
               </motion.h2>
               <div style={{
                 display: 'grid',
@@ -1141,7 +1310,7 @@ const Portfolio = () => {
                         fontSize: '1.125rem',
                         fontWeight: '600'
                       }}>{skill.name}</span>
-                      <span style={{ color: '#a5b4fc' }}>{skill.level}%</span>
+                      <span style={{ color: '#f9a8d4' }}>{skill.level}%</span>
                     </div>
                     <div style={{
                       height: '12px',
@@ -1156,8 +1325,10 @@ const Portfolio = () => {
                         transition={{ duration: 1, delay: index * 0.1 }}
                         style={{
                           height: '100%',
-                          background: 'linear-gradient(to right, #4F46E5, #10B981)',
-                          borderRadius: '9999px'
+                          background: 'linear-gradient(90deg, #EC4899, #8B5CF6, #3B82F6)',
+                          backgroundSize: '200% 200%',
+                          borderRadius: '9999px',
+                          animation: 'gradient 8s ease infinite'
                         }}
                       />
                     </div>
@@ -1187,7 +1358,12 @@ const Portfolio = () => {
                   fontWeight: 'bold',
                   textAlign: 'center',
                   marginBottom: '48px',
-                  color: '#a5b4fc'
+                  background: 'linear-gradient(90deg, #EC4899, #8B5CF6, #3B82F6)',
+                  backgroundSize: '200% 200%',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  animation: 'gradient 8s ease infinite'
                 }}
               >
                 Projects
@@ -1211,133 +1387,38 @@ const Portfolio = () => {
                     style={{
                       borderRadius: '16px',
                       backgroundColor: 'rgba(30, 41, 59, 0.8)',
-                      border: '1px solid rgba(79, 70, 229, 0.2)',
+                      border: '1px solid rgba(236, 72, 153, 0.2)',
                       cursor: 'pointer',
                       display: 'flex',
                       flexDirection: 'column',
-                      padding: '20px',
-                      height: '100%'
+                      padding: '0',
+                      height: '100%',
+                      overflow: 'hidden'
+                    }}
+                    whileHover={{ 
+                      y: -10,
+                      transition: { duration: 0.3 }
                     }}
                   >
-                    {/* Project Icon and Title */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
-                      <span style={{ fontSize: '1.5rem' }}>{project.icon}</span>
-                      <h3 style={{
-                        fontSize: '1.25rem',
-                        fontWeight: 'bold',
-                        color: '#e2e8f0',
-                        margin: 0
-                      }}>{project.title}</h3>
-                    </div>
-                    
-                    {/* Project Description */}
-                    <p style={{
-                      color: '#cbd5e1',
-                      marginBottom: '16px',
-                      fontSize: '0.875rem',
-                      lineHeight: '1.5',
-                      flexGrow: 1
-                    }}>{project.description}</p>
-                    
-                    {/* Technologies */}
-                    <div style={{
-                      display: 'flex',
-                      flexWrap: 'wrap',
-                      gap: '8px',
-                      marginBottom: '20px'
-                    }}>
-                      {project.technologies.map((tech) => (
-                        <span
-                          key={tech}
-                          className="tech-badge"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                    
-                    {/* View Project Button */}
-                    <motion.button
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      style={{
-                        width: '100%',
-                        padding: '10px 0',
-                        background: '#4F46E5',
-                        borderRadius: '8px',
-                        fontWeight: '600',
-                        border: 'none',
-                        color: 'white',
-                        cursor: 'pointer',
-                        transition: 'all 0.3s ease',
-                        fontSize: '0.875rem',
-                        marginTop: 'auto'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.target.style.background = '#4338CA';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.target.style.background = '#4F46E5';
-                      }}
-                      onClick={() => {
-                        if (project.title === 'Hamro-Doko') {
-                          window.open('https://hamrodoko.netlify.app', '_blank');
-                        } else if (project.title === 'NepolianMC') {
-                          window.open('https://mcnepal.onrender.com/', '_blank');
-                        }
-                      }}
-                    >
-                      View Project
-                    </motion.button>
-                  </motion.div>
-                ))}
-              </div>
-              
-              {/* Coming Soon Section */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                style={{ marginTop: '40px' }}
-              >
-                <h3 style={{
-                  fontSize: '1.875rem',
-                  fontWeight: 'bold',
-                  textAlign: 'center',
-                  marginBottom: '32px',
-                  color: '#a5b4fc'
-                }}>
-                  Coming Soon
-                </h3>
-                <div className="responsive-grid-2 responsive-grid-4" style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr',
-                  gap: '20px'
-                }}>
-                  {comingSoonProjects.map((project, index) => (
-                    <motion.div
-                      key={project.title}
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: index * 0.05 }}
-                      className="project-card"
-                      style={{
-                        borderRadius: '16px',
-                        backgroundColor: 'rgba(30, 41, 59, 0.8)',
-                        border: '1px solid rgba(79, 70, 229, 0.2)',
-                        cursor: 'pointer',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        padding: '20px',
-                        height: '100%'
-                      }}
-                    >
+                    <div className="project-card-bg"></div>
+                    <div className="project-content" style={{ padding: '20px', display: 'flex', flexDirection: 'column', height: '100%' }}>
                       {/* Project Icon and Title */}
                       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
-                        <span style={{ fontSize: '1.5rem' }}>{project.icon}</span>
+                        <motion.span 
+                          style={{ fontSize: '1.5rem' }}
+                          animate={{ 
+                            rotate: [0, 10, -10, 0],
+                          }}
+                          transition={{ 
+                            duration: 0.5,
+                            repeat: Infinity,
+                            repeatDelay: 3
+                          }}
+                        >
+                          {project.icon}
+                        </motion.span>
                         <h3 style={{
-                          fontSize: '1.125rem',
+                          fontSize: '1.25rem',
                           fontWeight: 'bold',
                           color: '#e2e8f0',
                           margin: 0
@@ -1370,19 +1451,161 @@ const Portfolio = () => {
                         ))}
                       </div>
                       
-                      {/* Coming Soon Badge */}
-                      <div style={{
+                      {/* View Project Button */}
+                      <motion.button
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="glow-button"
+                        style={{
+                          width: '100%',
+                          padding: '10px 0',
+                          background: 'linear-gradient(90deg, #EC4899, #8B5CF6)',
+                          borderRadius: '8px',
+                          fontWeight: '600',
+                          border: 'none',
+                          color: 'white',
+                          cursor: 'pointer',
+                          transition: 'all 0.3s ease',
+                          fontSize: '0.875rem',
+                          marginTop: 'auto'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.target.style.background = 'linear-gradient(90deg, #DB2777, #7C3AED)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.target.style.background = 'linear-gradient(90deg, #EC4899, #8B5CF6)';
+                        }}
+                        onClick={() => {
+                          if (project.title === 'Hamro-Doko') {
+                            window.open('https://hamrodoko.netlify.app', '_blank');
+                          } else if (project.title === 'NepolianMC') {
+                            window.open('https://mcnepal.onrender.com/', '_blank');
+                          }
+                        }}
+                      >
+                        View Project
+                      </motion.button>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+              
+              {/* Coming Soon Section */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                style={{ marginTop: '40px' }}
+              >
+                <h3 style={{
+                  fontSize: '1.875rem',
+                  fontWeight: 'bold',
+                  textAlign: 'center',
+                  marginBottom: '32px',
+                  color: '#f9a8d4'
+                }}>
+                  Coming Soon
+                </h3>
+                <div className="responsive-grid-2 responsive-grid-4" style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr',
+                  gap: '20px'
+                }}>
+                  {comingSoonProjects.map((project, index) => (
+                    <motion.div
+                      key={project.title}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: index * 0.05 }}
+                      className="project-card"
+                      style={{
+                        borderRadius: '16px',
+                        backgroundColor: 'rgba(30, 41, 59, 0.8)',
+                        border: '1px solid rgba(236, 72, 153, 0.2)',
+                        cursor: 'pointer',
                         display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        padding: '8px 0',
-                        background: 'rgba(79, 70, 229, 0.1)',
-                        borderRadius: '8px',
-                        color: '#a5b4fc',
-                        fontWeight: '500',
-                        fontSize: '0.875rem'
-                      }}>
-                        Coming Soon
+                        flexDirection: 'column',
+                        padding: '0',
+                        height: '100%',
+                        overflow: 'hidden'
+                      }}
+                      whileHover={{ 
+                        y: -10,
+                        transition: { duration: 0.3 }
+                      }}
+                    >
+                      <div className="project-card-bg"></div>
+                      <div className="project-content" style={{ padding: '20px', display: 'flex', flexDirection: 'column', height: '100%' }}>
+                        {/* Project Icon and Title */}
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+                          <motion.span 
+                            style={{ fontSize: '1.5rem' }}
+                            animate={{ 
+                              rotate: [0, 10, -10, 0],
+                            }}
+                            transition={{ 
+                              duration: 0.5,
+                              repeat: Infinity,
+                              repeatDelay: 3
+                            }}
+                          >
+                            {project.icon}
+                          </motion.span>
+                          <h3 style={{
+                            fontSize: '1.125rem',
+                            fontWeight: 'bold',
+                            color: '#e2e8f0',
+                            margin: 0
+                          }}>{project.title}</h3>
+                        </div>
+                        
+                        {/* Project Description */}
+                        <p style={{
+                          color: '#cbd5e1',
+                          marginBottom: '16px',
+                          fontSize: '0.875rem',
+                          lineHeight: '1.5',
+                          flexGrow: 1
+                        }}>{project.description}</p>
+                        
+                        {/* Technologies */}
+                        <div style={{
+                          display: 'flex',
+                          flexWrap: 'wrap',
+                          gap: '8px',
+                          marginBottom: '20px'
+                        }}>
+                          {project.technologies.map((tech) => (
+                            <span
+                              key={tech}
+                              className="tech-badge"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                        
+                        {/* Coming Soon Badge */}
+                        <motion.div 
+                          style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            padding: '8px 0',
+                            background: 'rgba(236, 72, 153, 0.1)',
+                            borderRadius: '8px',
+                            color: '#f9a8d4',
+                            fontWeight: '500',
+                            fontSize: '0.875rem'
+                          }}
+                          whileHover={{ 
+                            scale: 1.05,
+                            background: 'rgba(236, 72, 153, 0.2)'
+                          }}
+                        >
+                          Coming Soon
+                        </motion.div>
                       </div>
                     </motion.div>
                   ))}
@@ -1416,7 +1639,7 @@ const Portfolio = () => {
                   marginBottom: '48px'
                 }}
               >
-                Get In <span style={{ color: '#a5b4fc' }}>Touch</span>
+                Get In <span style={{ color: '#f9a8d4' }}>Touch</span>
               </motion.h2>
               <div style={{
                 maxWidth: '672px',
@@ -1470,7 +1693,7 @@ const Portfolio = () => {
                         width: '100%',
                         padding: '12px 16px',
                         backgroundColor: 'rgba(30, 41, 59, 0.8)',
-                        border: '1px solid rgba(79, 70, 229, 0.3)',
+                        border: '1px solid rgba(236, 72, 153, 0.3)',
                         borderRadius: '8px',
                         color: '#e2e8f0',
                         fontSize: '16px',
@@ -1479,10 +1702,10 @@ const Portfolio = () => {
                       }}
                       placeholder="Your Name"
                       onFocus={(e) => {
-                        e.target.style.borderColor = '#4F46E5';
+                        e.target.style.borderColor = '#EC4899';
                       }}
                       onBlur={(e) => {
-                        e.target.style.borderColor = 'rgba(79, 70, 229, 0.3)';
+                        e.target.style.borderColor = 'rgba(236, 72, 153, 0.3)';
                       }}
                     />
                   </div>
@@ -1503,7 +1726,7 @@ const Portfolio = () => {
                         width: '100%',
                         padding: '12px 16px',
                         backgroundColor: 'rgba(30, 41, 59, 0.8)',
-                        border: '1px solid rgba(79, 70, 229, 0.3)',
+                        border: '1px solid rgba(236, 72, 153, 0.3)',
                         borderRadius: '8px',
                         color: '#e2e8f0',
                         fontSize: '16px',
@@ -1512,10 +1735,10 @@ const Portfolio = () => {
                       }}
                       placeholder="your@email.com"
                       onFocus={(e) => {
-                        e.target.style.borderColor = '#4F46E5';
+                        e.target.style.borderColor = '#EC4899';
                       }}
                       onBlur={(e) => {
-                        e.target.style.borderColor = 'rgba(79, 70, 229, 0.3)';
+                        e.target.style.borderColor = 'rgba(236, 72, 153, 0.3)';
                       }}
                     />
                   </div>
@@ -1536,7 +1759,7 @@ const Portfolio = () => {
                         width: '100%',
                         padding: '12px 16px',
                         backgroundColor: 'rgba(30, 41, 59, 0.8)',
-                        border: '1px solid rgba(79, 70, 229, 0.3)',
+                        border: '1px solid rgba(236, 72, 153, 0.3)',
                         borderRadius: '8px',
                         color: '#e2e8f0',
                         fontSize: '16px',
@@ -1547,10 +1770,10 @@ const Portfolio = () => {
                       }}
                       placeholder="Your message..."
                       onFocus={(e) => {
-                        e.target.style.borderColor = '#4F46E5';
+                        e.target.style.borderColor = '#EC4899';
                       }}
                       onBlur={(e) => {
-                        e.target.style.borderColor = 'rgba(79, 70, 229, 0.3)';
+                        e.target.style.borderColor = 'rgba(236, 72, 153, 0.3)';
                       }}
                     ></textarea>
                   </div>
@@ -1558,24 +1781,25 @@ const Portfolio = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     type="submit"
+                    className="glow-button"
                     style={{
                       width: '100%',
                       padding: '12px 0',
-                      background: '#4F46E5',
+                      background: 'linear-gradient(90deg, #EC4899, #8B5CF6)',
                       borderRadius: '8px',
                       fontWeight: '600',
                       border: 'none',
                       color: 'white',
                       cursor: 'pointer',
                       transition: 'all 0.3s ease',
-                      boxShadow: '0 0 0 0 rgba(79, 70, 229, 0.25)',
+                      boxShadow: '0 0 0 0 rgba(236, 72, 153, 0.25)',
                       fontSize: '16px'
                     }}
                     onMouseEnter={(e) => {
-                      e.target.style.boxShadow = '0 10px 25px rgba(79, 70, 229, 0.25)';
+                      e.target.style.boxShadow = '0 10px 25px rgba(236, 72, 153, 0.25)';
                     }}
                     onMouseLeave={(e) => {
-                      e.target.style.boxShadow = '0 0 0 0 rgba(79, 70, 229, 0.25)';
+                      e.target.style.boxShadow = '0 0 0 0 rgba(236, 72, 153, 0.25)';
                     }}
                   >
                     Send Message
@@ -1650,7 +1874,7 @@ const Portfolio = () => {
                         url: 'https://discord.com/users/910140104977285171',
                         icon: (
                           <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292.077.077.006.127-.006.127a12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
                           </svg>
                         )
                       }
@@ -1668,7 +1892,7 @@ const Portfolio = () => {
                           textDecoration: 'none'
                         }}
                         onMouseEnter={(e) => {
-                          e.currentTarget.style.color = '#a5b4fc';
+                          e.currentTarget.style.color = '#f9a8d4';
                         }}
                         onMouseLeave={(e) => {
                           e.currentTarget.style.color = '#cbd5e1';
@@ -1682,15 +1906,15 @@ const Portfolio = () => {
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          border: '1px solid rgba(79, 70, 229, 0.2)',
+                          border: '1px solid rgba(236, 72, 153, 0.2)',
                           transition: 'all 0.3s ease'
                         }}
                         onMouseEnter={(e) => {
-                          e.currentTarget.style.borderColor = 'rgba(79, 70, 229, 0.5)';
-                          e.currentTarget.style.backgroundColor = 'rgba(79, 70, 229, 0.1)';
+                          e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.5)';
+                          e.currentTarget.style.backgroundColor = 'rgba(236, 72, 153, 0.1)';
                         }}
                         onMouseLeave={(e) => {
-                          e.currentTarget.style.borderColor = 'rgba(79, 70, 229, 0.2)';
+                          e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.2)';
                           e.currentTarget.style.backgroundColor = 'rgba(30, 41, 59, 0.8)';
                         }}
                         >
@@ -1715,7 +1939,7 @@ const Portfolio = () => {
         {/* Enhanced Footer */}
         <footer style={{
           backgroundColor: '#0f172a',
-          borderTop: '1px solid rgba(79, 70, 229, 0.2)',
+          borderTop: '1px solid rgba(236, 72, 153, 0.2)',
           padding: '48px 0 24px',
           color: '#e2e8f0'
         }}>
@@ -1735,7 +1959,7 @@ const Portfolio = () => {
                 <h3 style={{
                   fontSize: '1.25rem',
                   fontWeight: 'bold',
-                  color: '#a5b4fc',
+                  color: '#f9a8d4',
                   marginBottom: '8px',
                   display: 'flex',
                   alignItems: 'center',
@@ -1757,7 +1981,7 @@ const Portfolio = () => {
                 <h3 style={{
                   fontSize: '1.25rem',
                   fontWeight: 'bold',
-                  color: '#a5b4fc',
+                  color: '#f9a8d4',
                   marginBottom: '8px',
                   display: 'flex',
                   alignItems: 'center',
@@ -1784,7 +2008,7 @@ const Portfolio = () => {
                           transition: 'all 0.3s ease'
                         }}
                         onMouseEnter={(e) => {
-                          e.target.style.color = '#a5b4fc';
+                          e.target.style.color = '#f9a8d4';
                         }}
                         onMouseLeave={(e) => {
                           e.target.style.color = '#cbd5e1';
@@ -1802,7 +2026,7 @@ const Portfolio = () => {
                 <h3 style={{
                   fontSize: '1.25rem',
                   fontWeight: 'bold',
-                  color: '#a5b4fc',
+                  color: '#f9a8d4',
                   marginBottom: '8px',
                   display: 'flex',
                   alignItems: 'center',
@@ -1829,7 +2053,7 @@ const Portfolio = () => {
                       url: 'https://www.instagram.com/_bivaas_/',
                       icon: (
                         <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1112.324 0 6.162 6.162 0 01-12.324 0zM12 16a4 4 0 110-8 4 4 0 010 8zm4.965-10.405a1.44 1.44 0 112.881.001 1.44 1.44 0 01-2.881-.001z" />
+                          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.059-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1112.324 0 6.162 6.162 0 01-12.324 0zM12 16a4 4 0 110-8 4 4 0 010 8zm4.965-10.405a1.44 1.44 0 112.881.001 1.44 1.44 0 01-2.881-.001z" />
                         </svg>
                       )
                     }
@@ -1852,16 +2076,16 @@ const Portfolio = () => {
                         height: '40px',
                         borderRadius: '50%',
                         backgroundColor: 'rgba(30, 41, 59, 0.8)',
-                        border: '1px solid rgba(79, 70, 229, 0.2)'
+                        border: '1px solid rgba(236, 72, 153, 0.2)'
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.color = '#a5b4fc';
-                        e.currentTarget.style.borderColor = 'rgba(79, 70, 229, 0.5)';
-                        e.currentTarget.style.backgroundColor = 'rgba(79, 70, 229, 0.1)';
+                        e.currentTarget.style.color = '#f9a8d4';
+                        e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.5)';
+                        e.currentTarget.style.backgroundColor = 'rgba(236, 72, 153, 0.1)';
                       }}
                       onMouseLeave={(e) => {
                         e.currentTarget.style.color = '#cbd5e1';
-                        e.currentTarget.style.borderColor = 'rgba(79, 70, 229, 0.2)';
+                        e.currentTarget.style.borderColor = 'rgba(236, 72, 153, 0.2)';
                         e.currentTarget.style.backgroundColor = 'rgba(30, 41, 59, 0.8)';
                       }}
                     >
@@ -1876,7 +2100,7 @@ const Portfolio = () => {
                 <h3 style={{
                   fontSize: '1.25rem',
                   fontWeight: 'bold',
-                  color: '#a5b4fc',
+                  color: '#f9a8d4',
                   marginBottom: '8px',
                   display: 'flex',
                   alignItems: 'center',
@@ -1889,7 +2113,7 @@ const Portfolio = () => {
                 </h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <svg style={{ width: '16px', height: '16px', color: '#a5b4fc' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg style={{ width: '16px', height: '16px', color: '#f9a8d4' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                     <a href="https://mail.google.com/mail/?view=cm&fs=1&to=bivaasbaral7@gmail.com" style={{
@@ -1899,7 +2123,7 @@ const Portfolio = () => {
                       transition: 'all 0.3s ease'
                     }}
                     onMouseEnter={(e) => {
-                      e.target.style.color = '#a5b4fc';
+                      e.target.style.color = '#f9a8d4';
                     }}
                     onMouseLeave={(e) => {
                       e.target.style.color = '#cbd5e1';
@@ -1908,8 +2132,8 @@ const Portfolio = () => {
                     </a>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <svg style={{ width: '16px', height: '16px', color: '#a5b4fc' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <svg style={{ width: '16px', height: '16px', color: '#f9a8d4' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 111.314 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                     <span style={{ color: '#cbd5e1', fontSize: '0.875rem' }}>Nepal 🇳🇵</span>
@@ -1920,7 +2144,7 @@ const Portfolio = () => {
             
             {/* Copyright */}
             <div style={{
-              borderTop: '1px solid rgba(79, 70, 229, 0.2)',
+              borderTop: '1px solid rgba(236, 72, 153, 0.2)',
               paddingTop: '24px',
               textAlign: 'center'
             }}>
@@ -1939,43 +2163,5 @@ const Portfolio = () => {
     </>
   );
 };
-
-// Typewriter Effect Component
-const TypewriterEffect = React.memo(({ words }) => {
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const [currentText, setCurrentText] = useState('');
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  useEffect(() => {
-    const currentWord = words[currentWordIndex];
-    const timeout = setTimeout(() => {
-      if (!isDeleting) {
-        setCurrentText(currentWord.substring(0, currentText.length + 1));
-        if (currentText === currentWord) {
-          setTimeout(() => setIsDeleting(true), 1000);
-        }
-      } else {
-        setCurrentText(currentWord.substring(0, currentText.length - 1));
-        if (currentText === '') {
-          setIsDeleting(false);
-          setCurrentWordIndex((currentWordIndex + 1) % words.length);
-        }
-      }
-    }, isDeleting ? 50 : 100);
-    return () => clearTimeout(timeout);
-  }, [currentText, isDeleting, currentWordIndex, words]);
-
-  return (
-    <span style={{
-      display: 'inline-block',
-      minWidth: '200px'
-    }}>
-      {currentText}
-      <span style={{
-        animation: 'pulse 1s infinite'
-      }}>|</span>
-    </span>
-  );
-});
 
 export default Portfolio;
