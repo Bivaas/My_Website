@@ -150,12 +150,7 @@ const Portfolio = () => {
       icon: '💬',
       technologies: ['React', 'Node.js', 'MongoDB']
     },
-    {
-      title: 'AI Assistant',
-      description: 'Intelligent virtual assistant',
-      icon: '🤖',
-      technologies: ['React', 'Socket.io', 'Express']
-    }
+    
   ];
   
   return (
