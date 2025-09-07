@@ -19,7 +19,7 @@ const Portfolio = () => {
   const sections = useRef([]);
   
   // Roles for the animation
-  const roles = ['Full Stack Developer', 'UI/UX Designer', 'Problem Solver', 'Student'];
+  const roles = ['student','Full Stack Developer', 'UI/UX Designer', 'Problem Solver', ];
   
   // Sample quotes for the status section - can be updated from backend later
   const allQuotes = [
@@ -38,7 +38,81 @@ const Portfolio = () => {
     {
       text: "Simplicity is the ultimate sophistication.",
       author: "Leonardo da Vinci"
-    }
+    },
+    {
+  text: "Great code doesn’t just work—it whispers clarity.",
+  author: "Bivaas"
+},
+{
+  text: "Complexity is easy. Simplicity takes genius.",
+  author: "Bivaas"
+},
+{
+  text: "A good developer solves problems. A great one prevents them.",
+  author: "Bivaas"
+},
+{
+  text: "Every line of code is a decision—make it count.",
+  author: "Bivaas"
+},
+{
+  text: "Design is not just how it looks, but how it feels to use.",
+  author: "Inspired by Steve Jobs"
+},
+{
+  text: "Don't add features—solve problems.",
+  author: "Bivaas"
+},
+{
+  text: "The best products come from obsession, not obligation.",
+  author: "Bivaas"
+},
+{
+  text: "Refactor not because it’s broken, but because it can be better.",
+  author: "Bivaas"
+},
+{
+  text: "Programs must be written for people to read, and only incidentally for machines to execute.",
+  author: "Harold Abelson"
+},
+{
+  text: "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.",
+  author: "Martin Fowler"
+},
+{
+  text: "First, solve the problem. Then, write the code.",
+  author: "John Johnson"
+},
+{
+  text: "Make it work, make it right, make it fast.",
+  author: "Kent Beck"
+},
+{
+  text: "The function of good software is to make the complex appear to be simple.",
+  author: "Grady Booch"
+},
+{
+  text: "Simplicity is prerequisite for reliability.",
+  author: "Edsger W. Dijkstra"
+},
+{
+  text: "Talk is cheap. Show me the code.",
+  author: "Linus Torvalds"
+},
+{
+  text: "Good design is obvious. Great design is transparent.",
+  author: "Joe Sparano"
+},
+{
+  text: "Innovation is saying no to a thousand things.",
+  author: "Steve Jobs"
+},
+{
+  text: "If you can't explain it simply, you don't understand it well enough.",
+  author: "Albert Einstein"
+}
+
+
   ];
   
   // Lazy load quotes
@@ -163,12 +237,7 @@ const Portfolio = () => {
       icon: '💬',
       technologies: ['React', 'Node.js', 'MongoDB']
     },
-    {
-      title: 'AI Assistant',
-      description: 'Intelligent virtual assistant',
-      icon: '🤖',
-      technologies: ['React', 'Socket.io', 'Express']
-    }
+   
   ];
   
   return (
