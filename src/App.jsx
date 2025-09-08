@@ -602,7 +602,7 @@ const Portfolio = () => {
                     padding: '2px 0',
                     animation: 'gradient 8s ease infinite'
                   }}
-                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    onClick={() => scrollToSection('home')}  
                 >
                   Bivaas Baral
                 </motion.div>
