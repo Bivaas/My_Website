@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import toast, { Toaster } from 'react-hot-toast';
-
 // Helper function to shuffle array
 function shuffleArray(array) {
   const newArray = [...array];
@@ -11,7 +10,6 @@ function shuffleArray(array) {
   }
   return newArray;
 }
-
 const Portfolio = () => {
   const [activeSection, setActiveSection] = useState('home');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -121,7 +119,6 @@ const Portfolio = () => {
   text: "If you can't explain it simply, you don't understand it well enough.",
   author: "Albert Einstein"
 }
-
   ];
   
   // Lazy load quotes
@@ -290,23 +287,23 @@ const Portfolio = () => {
         }
         /* Custom scrollbar styling */
         .sidebar-scroll::-webkit-scrollbar {
-          width: 6px;
+          width: 8px;
         }
         .sidebar-scroll::-webkit-scrollbar-track {
-          background: rgba(44, 44, 44, 0.3);
-          border-radius: 3px;
+          background: rgba(20, 25, 40, 0.5);
+          border-radius: 4px;
         }
         .sidebar-scroll::-webkit-scrollbar-thumb {
-          background: rgba(236, 72, 153, 0.3);
-          border-radius: 3px;
+          background: linear-gradient(180deg, #00ff88, #00ccff);
+          border-radius: 4px;
         }
         .sidebar-scroll::-webkit-scrollbar-thumb:hover {
-          background: rgba(236, 72, 153, 0.5);
+          background: linear-gradient(180deg, #00ffaa, #00ddff);
         }
         /* For Firefox */
         .sidebar-scroll {
           scrollbar-width: thin;
-          scrollbar-color: rgba(236, 72, 153, 0.3) rgba(44, 44, 44, 0.3);
+          scrollbar-color: linear-gradient(180deg, #00ff88, #00ccff) rgba(20, 25, 40, 0.5);
         }
         /* Quote card styling */
         .quote-card-wrapper {
@@ -488,11 +485,11 @@ const Portfolio = () => {
           width: 100%;
           font-weight: 600;
           background: linear-gradient(90deg, #EC4899, #8B5CF6, #3B82F6);
-          background-size: '200% 200%',
+          backgroundSize: '200% 200%',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
           backgroundClip: 'text',
-          animation: 'gradient 8s ease infinite';
+          animation: 'gradient 8s ease infinite'
         }
         .role-indicators {
           display: flex;
@@ -512,6 +509,16 @@ const Portfolio = () => {
           background-color: #EC4899;
           transform: scale(1.2);
         }
+        /* Syntax highlighting colors for code sidebar */
+        .code-keyword { color: #ff79c6; } /* Pink for keywords */
+        .code-string { color: #f1fa8c; } /* Yellow for strings */
+        .code-number { color: #bd93f9; } /* Purple for numbers */
+        .code-boolean { color: #ff79c6; } /* Pink for booleans */
+        .code-comment { color: #6272a4; font-style: italic; } /* Gray for comments */
+        .code-property { color: #50fa7b; } /* Green for property names */
+        .code-punctuation { color: #f8f8f2; } /* White for punctuation */
+        .code-function { color: #8be9fd; } /* Cyan for functions */
+        .code-operator { color: #ff79c6; } /* Pink for operators */
       `}</style>
       <div style={{
         minHeight: '100vh',
@@ -731,184 +738,272 @@ const Portfolio = () => {
         </nav>
         
         {/* Sliding Sidebar */}
-        <AnimatePresence>
-          {isSidebarOpen && (
-            <>
-              {/* Backdrop */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                onClick={() => setIsSidebarOpen(false)}
-                style={{
-                  position: 'fixed',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                  zIndex: 99,
-                  backdropFilter: 'blur(4px)'
-                }}
-              />
-              {/* Sidebar */}
-              <motion.div
-                initial={{ x: '-100%' }}
-                animate={{ x: 0 }}
-                exit={{ x: '-100%' }}
-                transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-                style={{
-                  position: 'fixed',
-                  top: 0,
-                  left: 0,
-                  width: '80%',
-                  maxWidth: '380px',
-                  height: '100vh',
-                  backgroundColor: 'rgba(15, 23, 42, 0.95)',
-                  backdropFilter: 'blur(10px)',
-                  zIndex: 100,
-                  borderRight: '1px solid rgba(236, 72, 153, 0.3)',
-                  fontFamily: 'monospace',
-                  display: 'flex',
-                  flexDirection: 'column'
-                }}
-              >
-                {/* Header */}
-                <div style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  padding: '24px 24px 0 24px',
-                  marginBottom: '24px'
-                }}>
-                  <h2 style={{
-                    fontSize: '22px',
-                    fontWeight: 'bold',
-                    color: '#f9a8d4',
-                    fontFamily: 'monospace',
-                    textShadow: '0 0 10px rgba(236, 72, 153, 0.3)'
-                  }}>
-                    &lt;<span style={{ color: '#c084fc' }}>developer</span>-<span style={{ color: '#93c5fd' }}>info</span> /&gt;
-                  </h2>
-                  <button
-                    onClick={() => setIsSidebarOpen(false)}
-                    style={{
-                      backgroundColor: 'transparent',
-                      border: 'none',
-                      color: '#e2e8f0',
-                      cursor: 'pointer',
-                      padding: '4px',
-                      borderRadius: '4px',
-                      transition: 'all 0.3s ease'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.target.style.backgroundColor = 'rgba(236, 72, 153, 0.2)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.backgroundColor = 'transparent';
-                    }}
-                  >
-                    <svg style={{ width: '24px', height: '24px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
+<AnimatePresence>
+  {isSidebarOpen && (
+    <>
+      {/* Backdrop */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onClick={() => setIsSidebarOpen(false)}
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          zIndex: 99,
+          backdropFilter: 'blur(4px)'
+        }}
+      />
+      {/* Sidebar */}
+      <motion.div
+        initial={{ x: '-100%' }}
+        animate={{ x: 0 }}
+        exit={{ x: '-100%' }}
+        transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '80%',
+          maxWidth: '380px',
+          height: '100vh',
+          backgroundColor: '#0d1117', /* Darker background for coder theme */
+          backdropFilter: 'blur(10px)',
+          zIndex: 100,
+          borderRight: '1px solid #30363d', /* Subtle border */
+          fontFamily: '"Fira Code", "Consolas", "Monaco", monospace',
+          display: 'flex',
+          flexDirection: 'column',
+          boxShadow: '0 0 20px rgba(0, 255, 136, 0.1)' /* Subtle green glow */
+        }}
+      >
+        {/* Header */}
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: '24px 24px 0 24px',
+          marginBottom: '24px',
+          borderBottom: '1px solid #30363d',
+          paddingBottom: '16px'
+        }}>
+          <h2 style={{
+            fontSize: '22px',
+            fontWeight: 'bold',
+            color: '#58a6ff', /* GitHub blue */
+            fontFamily: 'monospace',
+            textShadow: '0 0 10px rgba(88, 166, 255, 0.3)'
+          }}>
+            &lt;<span style={{ color: '#ff79c6' }}>developer</span>-<span style={{ color: '#8be9fd' }}>info</span> /&gt;
+          </h2>
+          <button
+            onClick={() => setIsSidebarOpen(false)}
+            style={{
+              backgroundColor: 'transparent',
+              border: 'none',
+              color: '#8b949e',
+              cursor: 'pointer',
+              padding: '4px',
+              borderRadius: '4px',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.backgroundColor = 'rgba(88, 166, 255, 0.1)';
+              e.target.style.color = '#58a6ff';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.backgroundColor = 'transparent';
+              e.target.style.color = '#8b949e';
+            }}
+          >
+            <svg style={{ width: '24px', height: '24px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        {/* Scrollable Content */}
+        <div
+          className="sidebar-scroll"
+          style={{
+            flex: 1,
+            overflowY: 'auto',
+            padding: '0 24px',
+            marginBottom: '20px'
+          }}>
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '20px',
+            fontFamily: '"Fira Code", "Consolas", "Monaco", monospace',
+            fontSize: '13px',
+            lineHeight: '1.6',
+            letterSpacing: '0.2px'
+          }}>
+            {/* Developer Info */}
+            <div style={{
+              backgroundColor: '#161b22', /* Darker card background */
+              padding: '24px',
+              borderRadius: '12px',
+              border: '1px solid #30363d',
+              color: '#c9d1d9', /* Lighter text for dark background */
+              boxShadow: '0 0 20px rgba(0, 255, 136, 0.1)',
+              wordWrap: 'break-word',
+              overflowWrap: 'break-word',
+              maxWidth: '100%'
+            }}>
+              {/* Developer Object */}
+              <div style={{ color: '#ff79c6', fontSize: '13px', marginBottom: '12px' }}>
+                <span className="code-keyword">const</span> <span style={{ color: '#8be9fd' }}>developer</span> = {'{'}
+              </div>
+              <div style={{ marginLeft: '12px', marginBottom: '16px' }}>
+                <div style={{ marginBottom: '6px' }}>
+                  <span className="code-property">name</span><span className="code-punctuation">:</span> <span className="code-string">"Bivaas Baral"</span><span className="code-punctuation">,</span>
                 </div>
-                {/* Scrollable Content */}
-                <div
-                  className="sidebar-scroll"
-                  style={{
-                    flex: 1,
-                    overflowY: 'auto',
-                    padding: '0 24px',
-                    marginBottom: '20px'
-                  }}>
-                  <div style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '20px',
-                    fontFamily: '"Fira Code", "Consolas", "Monaco", monospace',
-                    fontSize: '13px',
-                    lineHeight: '1.6',
-                    letterSpacing: '0.2px'
-                  }}>
-                    {/* Developer Info */}
-                    <div style={{
-                      backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                      padding: '24px',
-                      borderRadius: '12px',
-                      border: '1px solid #EC4899',
-                      color: '#f9a8d4',
-                      boxShadow: '0 0 20px rgba(236, 72, 153, 0.2)',
-                      wordWrap: 'break-word',
-                      overflowWrap: 'break-word',
-                      maxWidth: '100%'
-                    }}>
-                      {/* Developer Object */}
-                      <div style={{ color: '#f9a8d4', fontSize: '13px', marginBottom: '12px' }}>
-                        <span style={{ color: '#f9a8d4' }}>const</span> <span style={{ color: '#f9a8d4' }}>developer</span> = {'{'}
-                      </div>
-                      <div style={{ marginLeft: '12px', marginBottom: '16px' }}>
-                        <div style={{ marginBottom: '6px' }}>
-                          <span style={{ color: '#f9a8d4' }}>name</span><span style={{ color: '#f9a8d4' }}>:</span> <span style={{ color: '#fbcfe8', fontWeight: 'bold', textShadow: '0 0 8px #fbcfe8' }}>"Bivaas Baral"</span><span style={{ color: '#f9a8d4' }}>,</span>
-                        </div>
-                        <div style={{ marginBottom: '6px' }}>
-                          <span style={{ color: '#f9a8d4' }}>role</span><span style={{ color: '#f9a8d4' }}>:</span> <span style={{ color: '#fbcfe8', fontWeight: 'bold', textShadow: '0 0 8px #fbcfe8' }}>"Full Stack Developer"</span><span style={{ color: '#f9a8d4' }}>,</span>
-                        </div>
-                        <div style={{ marginBottom: '6px' }}>
-                          <span style={{ color: '#f9a8d4' }}>location</span><span style={{ color: '#f9a8d4' }}>:</span> <span style={{ color: '#fbcfe8', fontWeight: 'bold', textShadow: '0 0 8px #fbcfe8' }}>"Nepal 🇳🇵"</span><span style={{ color: '#f9a8d4' }}>,</span>
-                        </div>
-                        <div style={{ marginBottom: '6px' }}>
-                          <span style={{ color: '#f9a8d4' }}>experience</span><span style={{ color: '#f9a8d4' }}>:</span> <span style={{ color: '#fbcfe8', fontWeight: 'bold', textShadow: '0 0 8px #fbcfe8' }}>"1+ years"</span><span style={{ color: '#f9a8d4' }}>,</span>
-                        </div>
-                        <div style={{ marginBottom: '12px' }}>
-                          <span style={{ color: '#f9a8d4' }}>status</span><span style={{ color: '#f9a8d4' }}>:</span> <span style={{ color: '#fbcfe8', fontWeight: 'bold', textShadow: '0 0 8px #fbcfe8' }}>"available"</span><span style={{ color: '#f9a8d4' }}>,</span>
-                        </div>
-                        <div style={{ marginBottom: '6px' }}>
-                          <span style={{ color: '#f9a8d4' }}>skills</span><span style={{ color: '#f9a8d4' }}>: [</span>
-                        </div>
-                        <div style={{ marginLeft: '12px', marginBottom: '6px' }}>
-                          <span style={{ color: '#fbcfe8', fontWeight: 'bold', textShadow: '0 0 8px #fbcfe8' }}>"React"</span><span style={{ color: '#f9a8d4' }}>, </span>
-                          <span style={{ color: '#fbcfe8', fontWeight: 'bold', textShadow: '0 0 8px #fbcfe8' }}>"JavaScript"</span><span style={{ color: '#f9a8d4' }}>, </span>
-                          <span style={{ color: '#fbcfe8', fontWeight: 'bold', textShadow: '0 0 8px #fbcfe8' }}>"Python"</span><span style={{ color: '#f9a8d4' }}>,</span>
-                        </div>
-                        <div style={{ marginLeft: '12px', marginBottom: '6px' }}>
-                          <span style={{ color: '#fbcfe8', fontWeight: 'bold', textShadow: '0 0 8px #fbcfe8' }}>"Node.js"</span><span style={{ color: '#f9a8d4' }}>, </span>
-                          <span style={{ color: '#fbcfe8', fontWeight: 'bold', textShadow: '0 0 8px #fbcfe8' }}>"MongoDB"</span><span style={{ color: '#f9a8d4' }}>, </span>
-                          <span style={{ color: '#fbcfe8', fontWeight: 'bold', textShadow: '0 0 8px #fbcfe8' }}>"HTML/CSS"</span>
-                        </div>
-                        <div style={{ marginBottom: '12px' }}>
-                          <span style={{ color: '#f9a8d4' }}>],</span>
-                        </div>
-                        <div style={{ marginBottom: '6px' }}>
-                          <span style={{ color: '#f9a8d4' }}>contact</span><span style={{ color: '#f9a8d4' }}>: {'{'}</span>
-                        </div>
-                        <div style={{ marginLeft: '12px', marginBottom: '4px' }}>
-                          <span style={{ color: '#f9a8d4' }}>email</span><span style={{ color: '#f9a8d4' }}>:</span> <span style={{
-                            color: '#fbcfe8',
-                            fontWeight: 'bold',
-                            textShadow: '0 0 8px #fbcfe8',
-                            wordWrap: 'break-word',
-                            overflowWrap: 'break-word'
-                          }}>"bivaasbaral7@gmail.com"</span><span style={{ color: '#f9a8d4' }}>,</span>
-                        </div>
-                        <div style={{ marginLeft: '12px', marginBottom: '6px' }}>
-                          <span style={{ color: '#f9a8d4' }}>github</span><span style={{ color: '#f9a8d4' }}>:</span> <span style={{ color: '#fbcfe8', fontWeight: 'bold', textShadow: '0 0 8px #fbcfe8' }}>"Bivaas"</span>
-                        </div>
-                        <div style={{ marginBottom: '6px' }}>
-                          <span style={{ color: '#f9a8d4' }}>{'}'}</span>
-                        </div>
-                      </div>
-                      <div style={{ color: '#f9a8d4' }}>
-                        {'}'};
-                      </div>
-                    </div>
-                  </div>
+                <div style={{ marginBottom: '6px' }}>
+                  <span className="code-property">role</span><span className="code-punctuation">:</span> <span className="code-string">"Full Stack Developer"</span><span className="code-punctuation">,</span>
                 </div>
-              </motion.div>
-            </>
-          )}
-        </AnimatePresence>
-        
+                <div style={{ marginBottom: '6px' }}>
+                  <span className="code-property">location</span><span className="code-punctuation">:</span> <span className="code-string">"Nepal 🇳🇵"</span><span className="code-punctuation">,</span>
+                </div>
+                <div style={{ marginBottom: '6px' }}>
+                  <span className="code-property">experience</span><span className="code-punctuation">:</span> <span className="code-string">"1+ years"</span><span className="code-punctuation">,</span>
+                </div>
+                <div style={{ marginBottom: '12px' }}>
+                  <span className="code-property">status</span><span className="code-punctuation">:</span> <span className="code-string">"available"</span><span className="code-punctuation">,</span>
+                </div>
+                
+                {/* Hobbies Section */}
+                <div style={{ marginBottom: '6px' }}>
+                  <span className="code-property">hobbies</span><span className="code-punctuation">: {'{'}</span>
+                </div>
+                <div style={{ marginLeft: '12px', marginBottom: '6px' }}>
+                  <span className="code-property">primary</span><span className="code-punctuation">:</span> <span className="code-string">"Coding"</span><span className="code-punctuation">,</span>
+                </div>
+                <div style={{ marginLeft: '12px', marginBottom: '6px' }}>
+                  <span className="code-property">secondary</span><span className="code-punctuation">:</span> <span className="code-string">"Gaming"</span><span className="code-punctuation">,</span>
+                </div>
+                <div style={{ marginLeft: '12px', marginBottom: '6px' }}>
+                  <span className="code-property">creative</span><span className="code-punctuation">:</span> <span className="code-string">"Photography"</span><span className="code-punctuation">,</span>
+                </div>
+                <div style={{ marginLeft: '12px', marginBottom: '12px' }}>
+                  <span className="code-property">learning</span><span className="code-punctuation">:</span> <span className="code-string">"Tech"</span>
+                </div>
+                <div style={{ marginBottom: '12px' }}>
+                  <span className="code-punctuation">{'}'},</span>
+                </div>
+                
+                {/* Interests Section */}
+                <div style={{ marginBottom: '6px' }}>
+                  <span className="code-property">interests</span><span className="code-punctuation">: {'{'}</span>
+                </div>
+                <div style={{ marginLeft: '12px', marginBottom: '6px' }}>
+                  <span className="code-property">professional</span><span className="code-punctuation">:</span> <span className="code-string">"Web Development"</span><span className="code-punctuation">,</span>
+                </div>
+                <div style={{ marginLeft: '12px', marginBottom: '6px' }}>
+                  <span className="code-property">entertainment</span><span className="code-punctuation">:</span> <span className="code-string">"Cinematics"</span><span className="code-punctuation">,</span>
+                </div>
+                <div style={{ marginLeft: '12px', marginBottom: '6px' }}>
+                  <span className="code-property">creative</span><span className="code-punctuation">:</span> <span className="code-string">"Video editing"</span><span className="code-punctuation">,</span>
+                </div>
+                <div style={{ marginLeft: '12px', marginBottom: '12px' }}>
+                  <span className="code-property">technical</span><span className="code-punctuation">:</span> <span className="code-string">"Cybersecurity"</span>
+                </div>
+                <div style={{ marginBottom: '12px' }}>
+                  <span className="code-punctuation">{'}'},</span>
+                </div>
+                
+                {/* Education Section */}
+                <div style={{ marginBottom: '6px' }}>
+                  <span className="code-property">education</span><span className="code-punctuation">: {'{'}</span>
+                </div>
+                <div style={{ marginLeft: '12px', marginBottom: '6px' }}>
+                  <span className="code-property">degree</span><span className="code-punctuation">:</span> <span className="code-string">"UndergraD"</span><span className="code-punctuation">,</span>
+                </div>
+                <div style={{ marginLeft: '12px', marginBottom: '6px' }}>
+                  <span className="code-property">institution</span><span className="code-punctuation">:</span> <span className="code-string">"NA"</span><span className="code-punctuation">,</span>
+                </div>
+                <div style={{ marginLeft: '12px', marginBottom: '12px' }}>
+                  <span className="code-property">year</span><span className="code-punctuation">:</span> <span className="code-string">"2026"</span>
+                </div>
+                <div style={{ marginBottom: '12px' }}>
+                  <span className="code-punctuation">{'}'},</span>
+                </div>
+                
+                {/* Languages Section */}
+                <div style={{ marginBottom: '6px' }}>
+                  <span className="code-property">languages</span><span className="code-punctuation">: {'{'}</span>
+                </div>
+                <div style={{ marginLeft: '12px', marginBottom: '6px' }}>
+                  <span className="code-property">english</span><span className="code-punctuation">:</span> <span className="code-string">"Fluent"</span><span className="code-punctuation">,</span>
+                </div>
+                <div style={{ marginLeft: '12px', marginBottom: '12px' }}>
+                  <span className="code-property">nepali</span><span className="code-punctuation">:</span> <span className="code-string">"Native"</span>
+                </div>
+                <div style={{ marginBottom: '12px' }}>
+                  <span className="code-punctuation">{'}'},</span>
+                </div>
+                
+                {/* Achievements Section */}
+                <div style={{ marginBottom: '6px' }}>
+                  <span className="code-property">achievements</span><span className="code-punctuation">: {'{'}</span>
+                </div>
+                <div style={{ marginLeft: '12px', marginBottom: '6px' }}>
+                  <span className="code-property">hackathon</span><span className="code-punctuation">:</span> <span className="code-string">"Active participant"</span><span className="code-punctuation">,</span>
+                </div>
+                <div style={{ marginLeft: '12px', marginBottom: '6px' }}>
+                  <span className="code-property">opensource</span><span className="code-punctuation">:</span> <span className="code-string">"Active contributor"</span><span className="code-punctuation">,</span>
+                </div>
+                <div style={{ marginLeft: '12px', marginBottom: '12px' }}>
+                  <span className="code-property">projects</span><span className="code-punctuation">:</span> <span className="code-string">"Built multiple projects"</span>
+                </div>
+                <div style={{ marginBottom: '12px' }}>
+                  <span className="code-punctuation">{'}'},</span>
+                </div>
+                
+                {/* Skills Section */}
+                <div style={{ marginBottom: '6px' }}>
+                  <span className="code-property">skills</span><span className="code-punctuation">: {'{'}</span>
+                </div>
+                <div style={{ marginLeft: '12px', marginBottom: '6px' }}>
+                  <span className="code-property">frontend</span><span className="code-punctuation">:</span> <span className="code-string">"React, HTML/CSS"</span><span className="code-punctuation">,</span>
+                </div>
+                <div style={{ marginLeft: '12px', marginBottom: '6px' }}>
+                  <span className="code-property">backend</span><span className="code-punctuation">:</span> <span className="code-string">"Node.js, Python"</span><span className="code-punctuation">,</span>
+                </div>
+                <div style={{ marginLeft: '12px', marginBottom: '12px' }}>
+                  <span className="code-property">database</span><span className="code-punctuation">:</span> <span className="code-string">"MongoDB, firebase"</span>
+                </div>
+                <div style={{ marginBottom: '12px' }}>
+                  <span className="code-punctuation">{'}'},</span>
+                </div>
+                
+                <div style={{ marginBottom: '6px' }}>
+                  <span className="code-property">contact</span><span className="code-punctuation">: {'{'}</span>
+                </div>
+                <div style={{ marginLeft: '12px', marginBottom: '4px' }}>
+                  <span className="code-property">email</span><span className="code-punctuation">:</span> <span className="code-string">"bivaasbaral7@gmail.com"</span><span className="code-punctuation">,</span>
+                </div>
+                <div style={{ marginLeft: '12px', marginBottom: '6px' }}>
+                  <span className="code-property">github</span><span className="code-punctuation">:</span> <span className="code-string">"Bivaas"</span>
+                </div>
+                <div style={{ marginBottom: '6px' }}>
+                  <span className="code-punctuation">{'}'}</span>
+                </div>
+              </div>
+              <div style={{ color: '#ff79c6' }}>
+                {'}'};
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </>
+  )}
+</AnimatePresence>
         <main>
           {/* Hero Section */}
           <section
