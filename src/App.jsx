@@ -2,6 +2,16 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import toast, { Toaster } from 'react-hot-toast';
 
+// Helper function to shuffle array
+function shuffleArray(array) {
+  const newArray = [...array];
+  for (let i = newArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+  }
+  return newArray;
+}
+
 const Portfolio = () => {
   const [activeSection, setActiveSection] = useState('home');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -40,7 +50,7 @@ const Portfolio = () => {
       author: "Leonardo da Vinci"
     },
     {
-  text: "Great code doesn’t just work—it whispers clarity.",
+  text: "Great code doesn't just work—it whispers clarity.",
   author: "Bivaas"
 },
 {
@@ -68,7 +78,7 @@ const Portfolio = () => {
   author: "Bivaas"
 },
 {
-  text: "Refactor not because it’s broken, but because it can be better.",
+  text: "Refactor not because it's broken, but because it can be better.",
   author: "Bivaas"
 },
 {
@@ -112,14 +122,14 @@ const Portfolio = () => {
   author: "Albert Einstein"
 }
 
-
   ];
   
   // Lazy load quotes
   useEffect(() => {
     // Simulate loading delay
     const timer = setTimeout(() => {
-      setQuotes(allQuotes);
+      // Shuffle the quotes before setting them
+      setQuotes(shuffleArray(allQuotes));
       setQuotesLoaded(true);
     }, 500);
     
@@ -357,24 +367,6 @@ const Portfolio = () => {
           color: #f9a8d4;
           margin-top: 1.5rem;
           font-weight: 500;
-        }
-        .quote-indicators {
-          display: flex;
-          justify-content: center;
-          gap: 10px;
-          margin-top: 1.5rem;
-        }
-        .quote-indicator {
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background-color: rgba(249, 168, 212, 0.3);
-          cursor: pointer;
-          transition: all 0.3s ease;
-        }
-        .quote-indicator.active {
-          background-color: #f9a8d4;
-          transform: scale(1.2);
         }
         .quote-loading {
           height: 100px;
@@ -1059,7 +1051,7 @@ const Portfolio = () => {
                   <div className="quote-card">
                     <div className="quote-label">
                       <span>📜</span>
-                      <span>Daily Quote</span>
+                      <span>Quotes</span>
                     </div>
                     <div className="quote-mark quote-mark-left">"</div>
                     <AnimatePresence mode="wait">
@@ -1085,15 +1077,7 @@ const Portfolio = () => {
                       )}
                     </AnimatePresence>
                     <div className="quote-mark quote-mark-right">"</div>
-                    <div className="quote-indicators">
-                      {quotes.map((_, index) => (
-                        <div
-                          key={index}
-                          className={`quote-indicator ${index === currentQuoteIndex ? 'active' : ''}`}
-                          onClick={() => setCurrentQuoteIndex(index)}
-                        />
-                      ))}
-                    </div>
+                    {/* Removed quote indicators here */}
                   </div>
                 </motion.div>
                 <motion.div
@@ -2232,5 +2216,4 @@ const Portfolio = () => {
     </>
   );
 };
-
 export default Portfolio;
