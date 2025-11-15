@@ -204,25 +204,45 @@ const Portfolio = () => {
       title: 'Hamro-Doko',
       description: 'Local guide in biratnagar',
       icon: '💼',
-      technologies: ['React', 'Express', 'Firebase']
+      technologies: ['React', 'Express', 'Firebase'],
+      url: 'https://hamrodoko.netlify.app',
+      badge: 'Collaborative'
     },
     {
       title: 'Ishu Traders',
       description: 'A local Business',
       icon: '💸',
-      technologies: ['React', 'Redux', 'Firebase']
+      technologies: ['React', 'tailwind', 'Firebase'],
+      url: 'https://ishutraders.netlify.app/'
     },
     {
       title: 'NepolianMC',
       description: 'A minecraft server',
       icon: '⛏️',
-      technologies: ['Node.js', 'Redis', 'firebase']
+      technologies: ['html', 'javascript', 'node.js'],
+      url: 'https://mcnepal.onrender.com/'
     },
     {
       title: 'Echo Trails',
       description: 'An award winning hackathon project',
       icon: '💡',
-      technologies: ['React', 'Node.js', 'Supabase']
+      technologies: ['React', 'Node.js', 'Supabase'],
+      url: 'https://echotrail.netlify.app/map',
+      badge: 'Collaborative'
+    },
+    {
+      title: 'Announcy',
+      description: 'Announcement and updates website',
+      icon: '📢',
+      technologies: ['React', 'tailwind', 'Vercel'],
+      url: 'https://announcy.vercel.app/'
+    },
+    {
+      title: 'TalkBit',
+      description: 'Real time chat app, includes global chat and DMs',
+      icon: '💬',
+      technologies: ['React', 'tailwind', 'firebase'],
+      url: 'https://talkbit.netlify.app/'
     }
   ];
   
@@ -244,12 +264,6 @@ const Portfolio = () => {
       description: 'Data visualization and reporting',
       icon: '📊',
       technologies: ['React', 'API', 'Chart.js']
-    },
-    {
-      title: 'Real-time Chat App',
-      description: 'Instant messaging with video calls',
-      icon: '💬',
-      technologies: ['React', 'Node.js', 'MongoDB']
     },
    
   ];
@@ -1563,26 +1577,42 @@ const Portfolio = () => {
                     <div className="project-card-bg"></div>
                     <div className="project-content" style={{ padding: '20px', display: 'flex', flexDirection: 'column', height: '100%' }}>
                       {/* Project Icon and Title */}
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
-                        <motion.span 
-                          style={{ fontSize: '1.5rem' }}
-                          animate={{ 
-                            rotate: [0, 10, -10, 0],
-                          }}
-                          transition={{ 
-                            duration: 0.5,
-                            repeat: Infinity,
-                            repeatDelay: 3
-                          }}
-                        >
-                          {project.icon}
-                        </motion.span>
-                        <h3 style={{
-                          fontSize: '1.25rem',
-                          fontWeight: 'bold',
-                          color: '#e2e8f0',
-                          margin: 0
-                        }}>{project.title}</h3>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                          <motion.span 
+                            style={{ fontSize: '1.5rem' }}
+                            animate={{ 
+                              rotate: [0, 10, -10, 0],
+                            }}
+                            transition={{ 
+                              duration: 0.5,
+                              repeat: Infinity,
+                              repeatDelay: 3
+                            }}
+                          >
+                            {project.icon}
+                          </motion.span>
+                          <h3 style={{
+                            fontSize: '1.25rem',
+                            fontWeight: 'bold',
+                            color: '#e2e8f0',
+                            margin: 0
+                          }}>{project.title}</h3>
+                        </div>
+                        {project.badge && (
+                          <span style={{
+                            backgroundColor: 'transparent',
+                            color: '#94a3b8',
+                            padding: '2px 6px',
+                            borderRadius: '3px',
+                            fontSize: '0.65rem',
+                            fontWeight: '500',
+                            whiteSpace: 'nowrap',
+                            border: '1px solid rgba(148, 163, 184, 0.3)'
+                          }}>
+                            {project.badge}
+                          </span>
+                        )}
                       </div>
                       
                       {/* Project Description */}
@@ -1636,12 +1666,8 @@ const Portfolio = () => {
                           e.target.style.background = 'linear-gradient(90deg, #EC4899, #8B5CF6)';
                         }}
                         onClick={() => {
-                          if (project.title === 'Hamro-Doko') {
-                            window.open('https://hamrodoko.netlify.app', '_blank');
-                          } else if (project.title === 'NepolianMC') {
-                            window.open('https://mcnepal.onrender.com/', '_blank');
-                          } else if (project.title === 'Echo Trails') {
-                            window.open('https://echotrail.netlify.app/map', '_blank');
+                          if (project.url) {
+                            window.open(project.url, '_blank');
                           }
                         }}
                       >
@@ -1657,7 +1683,7 @@ const Portfolio = () => {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                style={{ marginTop: '40px' }}
+                style={{ marginTop: '6rem' }}
               >
                 <h3 style={{
                   fontSize: '1.875rem',
@@ -1669,9 +1695,11 @@ const Portfolio = () => {
                   Coming Soon
                 </h3>
                 <div className="responsive-grid-2 responsive-grid-4" style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr',
-                  gap: '20px'
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '20px',
+                  justifyContent: 'center',
+                  width: '100%'
                 }}>
                   {comingSoonProjects.map((project, index) => (
                     <motion.div
@@ -1690,7 +1718,10 @@ const Portfolio = () => {
                         flexDirection: 'column',
                         padding: '0',
                         height: '100%',
-                        overflow: 'hidden'
+                        overflow: 'hidden',
+                        width: 'calc(33.333% - 14px)',
+                        minWidth: '280px',
+                        maxWidth: '350px'
                       }}
                       whileHover={{ 
                         y: -10,

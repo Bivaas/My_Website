@@ -78,26 +78,42 @@ const Projects = ({ sections, activeProjects, comingSoonProjects }) => {
               <div className="project-card-bg"></div>
               <div className="project-content" style={{ padding: '20px', display: 'flex', flexDirection: 'column', height: '100%' }}>
                 {/* Project Icon and Title */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
-                  <motion.span
-                    style={{ fontSize: '1.5rem' }}
-                    animate={{
-                      rotate: [0, 10, -10, 0],
-                    }}
-                    transition={{
-                      duration: 0.5,
-                      repeat: Infinity,
-                      repeatDelay: 3
-                    }}
-                  >
-                    {project.icon}
-                  </motion.span>
-                  <h3 style={{
-                    fontSize: '1.25rem',
-                    fontWeight: 'bold',
-                    color: '#e2e8f0',
-                    margin: 0
-                  }}>{project.title}</h3>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <motion.span
+                      style={{ fontSize: '1.5rem' }}
+                      animate={{
+                        rotate: [0, 10, -10, 0],
+                      }}
+                      transition={{
+                        duration: 0.5,
+                        repeat: Infinity,
+                        repeatDelay: 3
+                      }}
+                    >
+                      {project.icon}
+                    </motion.span>
+                    <h3 style={{
+                      fontSize: '1.25rem',
+                      fontWeight: 'bold',
+                      color: '#e2e8f0',
+                      margin: 0
+                    }}>{project.title}</h3>
+                  </div>
+                  {project.badge && (
+                    <span style={{
+                      backgroundColor: 'rgba(139, 92, 246, 0.3)',
+                      color: '#c4b5fd',
+                      padding: '4px 8px',
+                      borderRadius: '4px',
+                      fontSize: '0.7rem',
+                      fontWeight: '600',
+                      whiteSpace: 'nowrap',
+                      border: '1px solid rgba(139, 92, 246, 0.5)'
+                    }}>
+                      {project.badge}
+                    </span>
+                  )}
                 </div>
 
                 {/* Project Description */}
@@ -151,12 +167,8 @@ const Projects = ({ sections, activeProjects, comingSoonProjects }) => {
                     e.target.style.background = 'linear-gradient(90deg, #EC4899, #8B5CF6)';
                   }}
                   onClick={() => {
-                    if (project.title === 'Hamro-Doko') {
-                      window.open('https://hamrodoko.netlify.app', '_blank');
-                    } else if (project.title === 'NepolianMC') {
-                      window.open('https://mcnepal.onrender.com/', '_blank');
-                    } else if (project.title === 'Echo Trails') {
-                      window.open('https://echotrail.netlify.app/map', '_blank');
+                    if (project.url) {
+                      window.open(project.url, '_blank');
                     }
                   }}
                 >
@@ -186,7 +198,10 @@ const Projects = ({ sections, activeProjects, comingSoonProjects }) => {
           <div className="responsive-grid-2 responsive-grid-4" style={{
             display: 'grid',
             gridTemplateColumns: '1fr',
-            gap: '20px'
+            gap: '20px',
+            maxWidth: '600px',
+            margin: '0 auto',
+            width: '100%'
           }}>
             {comingSoonProjects.map((project, index) => (
               <motion.div
