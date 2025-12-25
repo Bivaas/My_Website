@@ -28,7 +28,7 @@ const Portfolio = () => {
   const [quotesLoaded, setQuotesLoaded] = useState(false);
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
   const newPortfolioUrl = 'https://bivaasbaral.com.np';
-  const newPortfolioLabel = 'bivaasbaral.com.np (Coming Soon)';
+  const newPortfolioLabel = 'bivaasbaral.com.np ';
   const sections = useRef([]);
   
   // Roles for the animation
@@ -618,7 +618,7 @@ const Portfolio = () => {
                 lineHeight: 1.6,
                 color: '#e2e8f0'
               }}>
-                Check out the updated site here:
+                Check out the updated site here: [COMING SOON]
                 <div style={{ marginTop: '8px', fontWeight: 600, color: '#f9a8d4', wordBreak: 'break-all' }}>
                   {newPortfolioLabel}
                 </div>
@@ -651,7 +651,7 @@ const Portfolio = () => {
                     e.target.style.boxShadow = '0 10px 30px rgba(236, 72, 153, 0.35)';
                   }}
                 >
-                  Take me to the new site (Coming Soon)
+                  Take me to the new site
                 </button>
                 <button
                   onClick={() => {
