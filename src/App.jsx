@@ -15,6 +15,8 @@ const Portfolio = () => {
   const [activeSection, setActiveSection] = useState('home');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [showDomainNotice, setShowDomainNotice] = useState(true);
+  const [legacyBlurred, setLegacyBlurred] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -25,6 +27,8 @@ const Portfolio = () => {
   const [quotes, setQuotes] = useState([]);
   const [quotesLoaded, setQuotesLoaded] = useState(false);
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
+  const newPortfolioUrl = 'https://bivaasbaral.com.np';
+  const newPortfolioLabel = 'bivaasbaral.com.np (Coming Soon)';
   const sections = useRef([]);
   
   // Roles for the animation
@@ -548,8 +552,138 @@ const Portfolio = () => {
         color: '#e2e8f0',
         margin: 0,
         padding: 0,
-        fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif'"
+        fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif'",
+        filter: legacyBlurred ? 'blur(2px)' : 'none',
+        opacity: legacyBlurred ? 0.9 : 1,
+        transition: 'filter 0.4s ease, opacity 0.4s ease'
       }}>
+        {showDomainNotice && (
+          <div style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 200,
+            backgroundColor: 'rgba(0, 0, 0, 0.65)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '24px'
+          }}>
+            <div style={{
+              width: '100%',
+              maxWidth: '520px',
+              background: 'linear-gradient(135deg, rgba(236, 72, 153, 0.15), rgba(59, 130, 246, 0.2))',
+              border: '1px solid rgba(236, 72, 153, 0.35)',
+              borderRadius: '16px',
+              padding: '28px',
+              boxShadow: '0 20px 60px rgba(0, 0, 0, 0.45)',
+              backdropFilter: 'blur(10px)',
+              color: '#e2e8f0'
+            }}>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                marginBottom: '12px'
+              }}>
+                <div style={{
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '12px',
+                  backgroundColor: 'rgba(236, 72, 153, 0.25)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#f9a8d4',
+                  fontWeight: 700,
+                  fontSize: '18px'
+                }}>!</div>
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '4px'
+                }}>
+                  <div style={{ fontSize: '20px', fontWeight: 700 }}>Heads up, the party moved 🎉</div>
+                  <div style={{ fontSize: '14px', color: '#cbd5e1' }}>
+                    This domain is the old spot and will be suspended soon. The fresh portfolio now lives on a new domain.
+                  </div>
+                </div>
+              </div>
+              <div style={{
+                backgroundColor: 'rgba(15, 23, 42, 0.6)',
+                borderRadius: '12px',
+                padding: '14px 16px',
+                border: '1px dashed rgba(236, 72, 153, 0.35)',
+                marginBottom: '18px',
+                fontSize: '14px',
+                lineHeight: 1.6,
+                color: '#e2e8f0'
+              }}>
+                Check out the updated site here:
+                <div style={{ marginTop: '8px', fontWeight: 600, color: '#f9a8d4', wordBreak: 'break-all' }}>
+                  {newPortfolioLabel}
+                </div>
+              </div>
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '10px'
+              }}>
+                <button
+                  onClick={() => window.open(newPortfolioUrl, '_blank', 'noopener,noreferrer')}
+                  style={{
+                    width: '100%',
+                    padding: '12px',
+                    borderRadius: '10px',
+                    border: 'none',
+                    background: 'linear-gradient(90deg, #EC4899, #8B5CF6)',
+                    color: '#fff',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                    boxShadow: '0 10px 30px rgba(236, 72, 153, 0.35)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.transform = 'translateY(-1px)';
+                    e.target.style.boxShadow = '0 14px 34px rgba(236, 72, 153, 0.45)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.transform = 'translateY(0)';
+                    e.target.style.boxShadow = '0 10px 30px rgba(236, 72, 153, 0.35)';
+                  }}
+                >
+                  Take me to the new site (Coming Soon)
+                </button>
+                <button
+                  onClick={() => {
+                    setShowDomainNotice(false);
+                    setLegacyBlurred(true);
+                  }}
+                  style={{
+                    width: '100%',
+                    padding: '12px',
+                    borderRadius: '10px',
+                    border: '1px solid rgba(226, 232, 240, 0.25)',
+                    backgroundColor: 'rgba(15, 23, 42, 0.6)',
+                    color: '#e2e8f0',
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    transition: 'background-color 0.2s ease, border-color 0.2s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
+                    e.target.style.borderColor = 'rgba(236, 72, 153, 0.45)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.backgroundColor = 'rgba(15, 23, 42, 0.6)';
+                    e.target.style.borderColor = 'rgba(226, 232, 240, 0.25)';
+                  }}
+                >
+                  Continue to this old site
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
         {/* Navigation */}
         <nav style={{
           position: 'fixed',
