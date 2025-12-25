@@ -27,8 +27,8 @@ const Portfolio = () => {
   const [quotes, setQuotes] = useState([]);
   const [quotesLoaded, setQuotesLoaded] = useState(false);
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
-  const newPortfolioUrl = 'https://bivaasbaral.com.np';
-  const newPortfolioLabel = 'bivaasbaral.com.np ';
+  const newPortfolioUrl = "https://bivaasbaral.com.np";
+  const newPortfolioLabel = "https://bivaasbaral.com.np";
   const sections = useRef([]);
   
   // Roles for the animation
