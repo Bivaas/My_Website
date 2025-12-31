@@ -579,13 +579,11 @@ const Portfolio = () => {
               <div style={{
                 width: '100%',
                 maxWidth: '520px',
-                background: 'linear-gradient(135deg, rgba(236, 72, 153, 0.15), rgba(59, 130, 246, 0.2))',
-                border: '1px solid rgba(236, 72, 153, 0.35)',
+                background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95))',
+                border: '1px solid rgba(236, 72, 153, 0.4)',
                 borderRadius: '16px',
                 padding: '28px',
-                boxShadow: '0 20px 60px rgba(0, 0, 0, 0.45)',
-                backdropFilter: 'blur(10px)',
-                WebkitBackdropFilter: 'blur(10px)',
+                boxShadow: '0 20px 60px rgba(0, 0, 0, 0.6)',
                 color: '#e2e8f0',
                 pointerEvents: 'auto'
               }}>
