@@ -618,7 +618,7 @@ const Portfolio = () => {
                 lineHeight: 1.6,
                 color: '#e2e8f0'
               }}>
-                Check out the updated site here: [COMING SOON]
+                Check out the updated site here: 
                 <div style={{ marginTop: '8px', fontWeight: 600, color: '#f9a8d4', wordBreak: 'break-all' }}>
                   {newPortfolioLabel}
                 </div>
